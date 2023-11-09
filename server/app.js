@@ -18,6 +18,12 @@ const {
 	editPost,
 	deletePost,
 } = require('./controllers/post')
+const {
+	getQuestions,
+	addQuestion,
+	deleteQuestion,
+	editQuestion,
+} = require('./controllers/question')
 const mapUser = require('./helpers/mapUser')
 const authenticated = require('./middlewares/authenticated')
 const hasRole = require('./middlewares/hasRole')
@@ -25,6 +31,7 @@ const ROLES = require('./constants/roles')
 const mapPost = require('./helpers/mapPost')
 const { addComment, deleteComment } = require('./controllers/comment')
 const mapComment = require('./helpers/mapComment')
+const mapQuestion = require('./helpers/mapQuestion')
 
 const PORT = process.env.PORT || 3001
 const app = express()
@@ -59,7 +66,11 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/logout', (req, res) => {
-	res.cookie('token', '', { httpOnly: true }).send({})
+	try {
+		res.cookie('token', '', { httpOnly: true }).send({})
+	} catch (error) {
+		res.send({ error: e.message || 'Unknown error' })
+	}
 })
 
 app.get('/posts', async (req, res) => {
@@ -81,12 +92,16 @@ app.get('/posts/:id', async (req, res) => {
 app.use(authenticated)
 
 app.post('/posts/:id/comments', async (req, res) => {
-	const newComment = await addComment(req.params.id, {
-		content: req.body.content,
-		author: req.user.id,
-	})
+	try {
+		const newComment = await addComment(req.params.id, {
+			content: req.body.content,
+			author: req.user.id,
+		})
 
-	res.send({ data: mapComment(newComment) })
+		res.send({ data: mapComment(newComment) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
 })
 
 app.delete(
@@ -100,23 +115,31 @@ app.delete(
 )
 
 app.post('/posts', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const newPost = await addPost({
-		title: req.body.title,
-		content: req.body.content,
-		image: req.body.imageUrl,
-	})
+	try {
+		const newPost = await addPost({
+			title: req.body.title,
+			content: req.body.content,
+			image: req.body.imageUrl,
+		})
 
-	res.send({ data: mapPost(newPost) })
+		res.send({ data: mapPost(newPost) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
 })
 
 app.patch('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const updatedPost = await editPost(req.params.id, {
-		title: req.body.title,
-		content: req.body.content,
-		image: req.body.imageUrl,
-	})
+	try {
+		const updatedPost = await editPost(req.params.id, {
+			title: req.body.title,
+			content: req.body.content,
+			image: req.body.imageUrl,
+		})
 
-	res.send({ data: mapPost(updatedPost) })
+		res.send({ data: mapPost(updatedPost) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
 })
 
 app.delete('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
@@ -138,17 +161,61 @@ app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
 })
 
 app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const newUser = await updateUser(req.params.id, {
-		role: req.body.roleId,
-	})
+	try {
+		const newUser = await updateUser(req.params.id, {
+			role: req.body.roleId,
+		})
 
-	res.send({ data: mapUser(newUser) })
+		res.send({ data: mapUser(newUser) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
 })
 
 app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	await deleteUser(req.params.id)
 
 	res.send({ error: null })
+})
+
+app.get('/questions', async (req, res) => {
+	const questions = await getQuestions()
+
+	res.json(questions)
+	// res.send({ data: mapQuestion(questions) })
+})
+
+app.post('/questions', async (req, res) => {
+	try {
+		const newQuestion = await addQuestion(req.body)
+
+		res.send(newQuestion)
+		// res.send({ data: mapQuestion(newQuestion) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
+})
+
+app.put('/questions/:id', async (req, res) => {
+	try {
+		// const updatedQuestion = await editQuestion(req.params.id, req.body)
+		await editQuestion(req.params.id, req.body)
+
+		res.json({
+			_id: req.params.id,
+			...req.body,
+		})
+		// res.send({ data: mapQuestion(updatedQuestion) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
+})
+
+app.delete('/questions/:id', async (req, res) => {
+	await deleteQuestion(req.params.id)
+
+	res.json(req.params.id)
+	// res.send({ error: null })
 })
 
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {

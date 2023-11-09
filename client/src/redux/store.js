@@ -11,6 +11,7 @@ import {
 	usersReducer,
 	postReducer,
 	postsReducer,
+  questionReducer,
 } from './'
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
 	users: usersReducer,
 	post: postReducer,
 	posts: postsReducer,
+  question: questionReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

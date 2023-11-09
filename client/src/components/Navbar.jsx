@@ -38,6 +38,24 @@ export const Navbar = () => {
 							Главная
 						</NavLink>
 					</li>
+					<li>
+						<NavLink
+							to="/quiz"
+							className="text-xs text-gray-400 hover:text-white"
+							style={({ isActive }) => (isActive ? activeStyles : undefined)}
+						>
+							Викторина
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to="/edit"
+							className="text-xs text-gray-400 hover:text-white"
+							style={({ isActive }) => (isActive ? activeStyles : undefined)}
+						>
+							Редактировать
+						</NavLink>
+					</li>
 				</ul>
 			) : (
 				<ul className="flex gap-8">

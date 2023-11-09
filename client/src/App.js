@@ -1,12 +1,18 @@
 import { useLayoutEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { Error, Layout } from './components'
-import { MainPage, AuthorizationPage, RegistrationPage } from './pages'
+import {
+	MainPage,
+	AuthorizationPage,
+	RegistrationPage,
+	QuizPage,
+	EditPage,
+} from './pages'
+import { useDispatch } from 'react-redux'
 import { setUser } from './redux'
+import { ERROR } from './constants'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { ERROR } from './constants'
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -34,11 +40,13 @@ export const App = () => {
 				<Route path="/" element={<MainPage />} />
 				<Route path="/login" element={<AuthorizationPage />} />
 				<Route path="/register" element={<RegistrationPage />} />
-				{/* <Route path="/users" element={<Users />} />
-				<Route path="/post" element={<Post />} />
-				<Route path="/post/:id" element={<Post />} />
-				<Route path="/post/:id/edit" element={<Post />} /> */}
+				<Route path="/quiz" element={<QuizPage />} />
+				<Route path="/edit" element={<EditPage />} />
 				<Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
+				{/* <Route path="/users" element={<Users />} /> */}
+				{/* <Route path="/post" element={<Post />} /> */}
+				{/* <Route path="/post/:id" element={<Post />} /> */}
+				{/* <Route path="/post/:id/edit" element={<Post />} /> */}
 			</Routes>
 
 			<ToastContainer position="bottom-right" />

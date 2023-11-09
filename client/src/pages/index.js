@@ -1,6 +1,4 @@
-export * from './LoginPage'
 export * from './MainPage'
 export * from './EditPage'
-export * from './TestPage'
 export * from './AuthorizationPage'
 export * from './RegiztrationPage'

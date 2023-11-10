@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, EditField } from '../components'
@@ -12,8 +12,8 @@ import {
 export const EditPage = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const questions = useSelector(selectQuestions)
 	const [isLoading, setIsLoading] = useState(false)
+	const questions = useSelector(selectQuestions)
 
 	const onQuestionAdd = () => {
 		setIsLoading(true)

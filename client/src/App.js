@@ -9,7 +9,7 @@ import {
 	EditPage,
 } from './pages'
 import { useDispatch } from 'react-redux'
-import { setUser } from './redux'
+import { loadQuestionsAsync, setUser } from './redux'
 import { ERROR } from './constants'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,6 +18,8 @@ export const App = () => {
 	const dispatch = useDispatch()
 
 	useLayoutEffect(() => {
+		dispatch(loadQuestionsAsync())
+
 		const currentUserDataJSON = sessionStorage.getItem('userData')
 
 		if (!currentUserDataJSON) {

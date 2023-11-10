@@ -36,22 +36,30 @@ export const MainPage = () => {
 									<Moment date={walkthrough.date} format="DD-MM-YYYY HH:mm" />
 								</div>
 								<div className="h-9 w-9">
-									{walkthrough.numberOfCorrectAnswers <= 3 && (
+									{walkthrough.numberOfCorrectAnswers /
+										walkthrough.numberOfQuestions <=
+										0.3 && (
 										<img
 											className="bad rounded-md border border-amber-950"
 											src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/bad.png?raw=true"
 											alt="bad.png"
 										/>
 									)}
-									{walkthrough.numberOfCorrectAnswers > 3 &&
-										walkthrough.numberOfCorrectAnswers < 7 && (
+									{walkthrough.numberOfCorrectAnswers /
+										walkthrough.numberOfQuestions >
+										0.3 &&
+										walkthrough.numberOfCorrectAnswers /
+											walkthrough.numberOfQuestions <
+											0.7 && (
 											<img
 												className="norm rounded-md border border-amber-950"
 												src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/norm.png?raw=true"
 												alt="norm.png"
 											/>
 										)}
-									{walkthrough.numberOfCorrectAnswers >= 7 && (
+									{walkthrough.numberOfCorrectAnswers /
+										walkthrough.numberOfQuestions >=
+										0.7 && (
 										<img
 											className="good rounded-md border border-amber-950"
 											src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/good.png?raw=true"

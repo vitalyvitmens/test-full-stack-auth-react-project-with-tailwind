@@ -22,7 +22,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="flex py-4 justify-between items-center">
+		<div className="flex py-4 justify-between items-center text-xl">
 			<span className="flex justify-center items-center px-2 text-green-800 font-extrabold text-3xl">
 				QUIZ 1.0
 			</span>
@@ -32,7 +32,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Главная
@@ -41,7 +41,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/quiz"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Викторина
@@ -50,7 +50,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/edit"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Редактировать
@@ -62,7 +62,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Главная
@@ -71,7 +71,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/register"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Register
@@ -80,7 +80,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/login"
-							className="text-xs text-gray-400 hover:text-white"
+							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Login
@@ -88,9 +88,9 @@ export const Navbar = () => {
 					</li>
 				</ul>
 			)}
-			<div className="flex">
+			<div className="flex text-xl">
 				<i
-					className="fa fa-backward pt-2 pr-2 text-xl text-green-900 hover:cursor-pointer hover:opacity-70"
+					className="fa fa-backward pt-3.5 pr-2 text-green-900 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
 				>
 					{' '}

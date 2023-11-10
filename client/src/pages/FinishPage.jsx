@@ -25,21 +25,21 @@ export const FinishPage = ({ score, numberOfQuestions, onRestart }) => {
 			<p className="text-xl mb-8">
 				Правильных ответов: <span className="text-red-700">{score}</span>
 			</p>
-			{score <= 3 && (
+			{score / numberOfQuestions <= 0.3 && (
 				<img
 					className="bad pb-10"
 					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/bad.png?raw=true"
 					alt="bad.png"
 				/>
 			)}
-			{score > 3 && score < 7 && (
+			{score / numberOfQuestions > 0.3 && score / numberOfQuestions < 0.7 && (
 				<img
 					className="norm pb-10"
 					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/norm.png?raw=true"
 					alt="norm.png"
 				/>
 			)}
-			{score >= 7 && (
+			{score / numberOfQuestions >= 0.7 && (
 				<img
 					className="good pb-10"
 					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/good.png?raw=true"

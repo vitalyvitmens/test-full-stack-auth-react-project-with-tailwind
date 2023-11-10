@@ -21,7 +21,9 @@ export const MainPage = () => {
 				<Button title="Запустить тест" onClick={() => navigate('/quiz')} />
 				<Button title="Редактировать тест" onClick={() => navigate('/edit')} />
 			</div>
-			<h2 className="mt-8 mb-4 text-3xl text-blue-800">История прохождений</h2>
+			<h2 className="mt-8 mb-4 text-3xl text-center text-blue-800">
+				История прохождений
+			</h2>
 			<div className="p-10 w-full flex flex-col justify-center items-center  border border-amber-950 rounded-md">
 				<div className="w-full flex flex-col items-center">
 					<ul className="w-[70%]">

@@ -88,23 +88,25 @@ export const Navbar = () => {
 					</li>
 				</ul>
 			)}
-			<i
-				className="fa fa-backward fa-2x text-green-900 hover:cursor-pointer hover:opacity-70"
-				onClick={() => navigate(-1)}
-			>
-				{' '}
-				назад
-			</i>
-			{login ? (
-				<div className="flex items-center">
-					<h1 className="mr-2">{login}</h1>
-					<Button onClick={logoutHandler}>Выйти</Button>
-				</div>
-			) : (
-				<Button bgColor="bg-green-800">
-					<Link to="/login">Войти</Link>
-				</Button>
-			)}
+			<div className="flex">
+				<i
+					className="fa fa-backward pt-2 pr-2 text-xl text-green-900 hover:cursor-pointer hover:opacity-70"
+					onClick={() => navigate(-1)}
+				>
+					{' '}
+					назад
+				</i>
+				{login ? (
+					<div className="flex items-center">
+						<h1 className="mr-2">{login}</h1>
+						<Button onClick={logoutHandler}>Выйти</Button>
+					</div>
+				) : (
+					<Button bgColor="bg-green-800">
+						<Link to="/login">Войти</Link>
+					</Button>
+				)}
+			</div>
 		</div>
 	)
 }

@@ -13,7 +13,6 @@ export const EditPage = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const questions = useSelector(selectQuestions)
-  console.log(Array.isArray(questions))
 	const [isLoading, setIsLoading] = useState(false)
 
 	const onQuestionAdd = () => {
@@ -29,11 +28,6 @@ export const EditPage = () => {
 			],
 		}
 
-	// 	dispatch(addQuestionAsync(newQuestion))
-	// 	dispatch(loadQuestionsAsync()).then(() => {
-	// 		setIsLoading(false)
-	// 	})
-	// }
 		dispatch(addQuestionAsync(newQuestion)).then(() => {
 			dispatch(loadQuestionsAsync()).then(() => {
 				setIsLoading(false)

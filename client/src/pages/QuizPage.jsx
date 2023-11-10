@@ -9,8 +9,6 @@ export const QuizPage = () => {
 	const [currentQuestion, setCurrentQuestion] = useState(0)
 	const [finished, setFinished] = useState(false)
 	const questions = useSelector(selectQuestions)
-  console.log('questions:', questions)
-  console.log('questions.length:', questions.length)
 
 	const onNextClick = async (answer, last) => {
 		if (answer.correct) setScore((prev) => prev + 1)

@@ -22,7 +22,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="flex py-4 justify-between items-center text-xl">
+		<div className="flex mb-20 py-4 justify-between items-center text-xl">
 			<span className="flex justify-center items-center px-2 text-green-800 font-extrabold text-3xl">
 				QUIZ 1.0
 			</span>
@@ -90,12 +90,9 @@ export const Navbar = () => {
 			)}
 			<div className="flex text-xl">
 				<i
-					className="fa fa-backward pt-3.5 pr-2 text-green-900 hover:cursor-pointer hover:opacity-70"
+					className="fa fa-backward fa-2x pt-1.5 pr-2 text-blue-900 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
-				>
-					{' '}
-					назад
-				</i>
+				></i>
 				{login ? (
 					<div className="flex items-center">
 						<h1 className="mr-2">{login}</h1>

@@ -80,6 +80,7 @@ export const AuthorizationPage = () => {
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<input
+					id="authLogin"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
@@ -87,6 +88,7 @@ export const AuthorizationPage = () => {
 					})}
 				/>
 				<input
+					id="authPassword"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {

@@ -20,6 +20,7 @@ export const Answer = ({ answer, onAnswerChange, onAnswerDelete }) => {
 		<div className="pt-1 flex justify-between">
 			<li className="px-4 pt-6 flex-auto border border-amber-950 rounded-md bg-green-200 hover:bg-green-300">
 				<input
+					id={answerValue.title}
 					type="text"
 					value={answerValue.title}
 					onChange={onChange}

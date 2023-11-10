@@ -67,7 +67,7 @@ export const RegistrationPage = () => {
 
 				dispatch(setUser(user))
 				sessionStorage.setItem('userData', JSON.stringify(user))
-        toast(`${login} зарегистрировался`)
+				toast(`${login} зарегистрировался`)
 			}
 		)
 	}
@@ -90,6 +90,7 @@ export const RegistrationPage = () => {
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<input
+					id="login"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
@@ -97,6 +98,7 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<input
+					id="password"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
@@ -104,6 +106,7 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<input
+					id="passcheck"
 					type="password"
 					placeholder="Проверка пароля..."
 					{...register('passcheck', {

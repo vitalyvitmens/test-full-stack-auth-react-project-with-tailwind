@@ -17,7 +17,7 @@ export const MainPage = () => {
 
 	return (
 		<>
-			<div className="flex mt-10 justify-center gap-20">
+			<div className="flex justify-center gap-20">
 				<Button title="Запустить тест" onClick={() => navigate('/quiz')} />
 				<Button title="Редактировать тест" onClick={() => navigate('/edit')} />
 			</div>

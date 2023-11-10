@@ -64,7 +64,7 @@ export const EditPage = () => {
 				{!isLoading &&
 					questions.map((question) => (
 						<EditField
-							key={question.title}
+							key={question._id}
 							id={question._id}
 							title={question.title}
 							answers={question.answers}

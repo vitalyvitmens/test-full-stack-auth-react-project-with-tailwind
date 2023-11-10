@@ -7,8 +7,6 @@ export const addQuestionAsync = (question) => {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(question),
 		})
-    console.log('addQuestionAsync:', response)
-		// const data = await response.json()
 		return dispatch(addQuestion(response))
 	}
 }

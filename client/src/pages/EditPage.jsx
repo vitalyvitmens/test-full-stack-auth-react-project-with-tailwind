@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, EditField } from '../components'
@@ -60,7 +60,7 @@ export const EditPage = () => {
 				{!isLoading &&
 					questions.map((question) => (
 						<EditField
-							key={question._id}
+							key={question.title}
 							id={question._id}
 							title={question.title}
 							answers={question.answers}

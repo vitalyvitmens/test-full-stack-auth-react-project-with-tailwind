@@ -11,9 +11,13 @@ export const QuizPage = () => {
 	const questions = useSelector(selectQuestions)
 
 	const onNextClick = async (answer, last) => {
-		if (answer.correct) setScore((prev) => prev + 1)
+		if (answer.correct) {
+			setScore((prev) => prev + 1)
+		}
 
-		if (last) setFinished(true)
+		if (last) {
+			return setFinished(true)
+		}
 
 		setCurrentQuestion(currentQuestion + 1)
 	}
@@ -21,7 +25,9 @@ export const QuizPage = () => {
 	const onPrevClick = () => {
 		if (currentQuestion !== 0) {
 			setCurrentQuestion(currentQuestion - 1)
-			if (score !== 0) setScore(score - 1)
+			if (score !== 0) {
+				setScore(score - 1)
+			}
 		}
 	}
 
@@ -29,6 +35,15 @@ export const QuizPage = () => {
 		setScore(0)
 		setCurrentQuestion(0)
 		setFinished(false)
+	}
+
+	if (!questions.length) {
+		return (
+			<div className="flex-col">
+				<i className="fa fa-refresh fa-spin fa-3x fa-fw mr-2 text-3xl" />
+				<span>Loading...</span>
+			</div>
+		)
 	}
 
 	return finished ? (

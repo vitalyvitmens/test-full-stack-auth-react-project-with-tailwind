@@ -23,8 +23,7 @@ export const FinishPage = ({ score, numberOfQuestions, onRestart }) => {
 		<div className="w-[60%] flex flex-col justify-center items-center">
 			<h1 className="mb-4 text-3xl">Тест завершён</h1>
 			<p className="text-xl mb-8">
-				Правильных ответов:{' '}
-				<span className="text-red-700">{score}</span>
+				Правильных ответов: <span className="text-red-700">{score}</span>
 			</p>
 			{score <= 3 && (
 				<img

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, EditField } from '../components'
+import { Button, EditField, Loader } from '../components'
 import {
 	addQuestionAsync,
 	loadQuestionsAsync,
@@ -44,6 +44,10 @@ export const EditPage = () => {
 
 	const onQuestionDelete = (id) => {
 		dispatch(deleteQuestionAsync(id))
+	}
+
+	if (!questions.length) {
+		return <Loader />
 	}
 
 	return (

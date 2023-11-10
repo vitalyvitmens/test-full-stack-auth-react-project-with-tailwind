@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Question } from '../components'
+import { Loader, Question } from '../components'
 import { FinishPage } from '../pages'
 import { selectQuestions } from '../redux'
 
@@ -38,12 +38,7 @@ export const QuizPage = () => {
 	}
 
 	if (!questions.length) {
-		return (
-			<div className="flex flex-col mt-40 items-center text-xl text-amber-950">
-				<i className="fa fa-refresh fa-spin fa-5x fa-fw" />
-				<span>Loading...</span>
-			</div>
-		)
+		return <Loader />
 	}
 
 	return finished ? (

@@ -16,7 +16,7 @@ export const Question = ({
 	}
 
 	return (
-		<div className="w-[60%] my-4 p-4 border border-amber-950 rounded-md">
+		<div className="flex flex-col my-4 p-4 border border-amber-950 rounded-md">
 			<h1 className="mb-4 text-3xl text-red-600">{title}</h1>
 			<ul>
 				{answers.map((answer) => (

@@ -39,8 +39,8 @@ export const QuizPage = () => {
 
 	if (!questions.length) {
 		return (
-			<div className="flex-col">
-				<i className="fa fa-refresh fa-spin fa-3x fa-fw mr-2 text-3xl" />
+			<div className="flex flex-col mt-40 items-center text-xl text-amber-950">
+				<i className="fa fa-refresh fa-spin fa-5x fa-fw" />
 				<span>Loading...</span>
 			</div>
 		)

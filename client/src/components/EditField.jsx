@@ -76,42 +76,44 @@ export const EditField = ({
 	}
 
 	return (
-		<li className="w-full p-4 mb-6 flex flex-col border border-red-800 rounded-md">
-			<input
-				type="text"
-				value={titleValue}
-				onChange={onTitleChange}
-				className="mb-1 pt-3 pb-2 px-4 border border-amber-950 rounded-md text-2xl focus:border-red-800 focus:outline-none bg-red-300 hover:bg-red-400 active:shadow-none"
-			></input>
-			<div
-				className="w-full flex flex-col shadow-lg shadow-slate-600/100 border border-blue-800 rounded-md items-center bg-slate-300 hover:bg-slate-400 hover:cursor-pointer active:shadow-none"
-				onClick={onAnswerAdd}
-			>
-				<i
-					className="fa fa-plus-square fa-3x text-blue-800 hover:cursor-pointer"
-					disabled={isLoading}
-				></i>
-			</div>
-
-			<ul>
-				{answersValue.map((answer) => (
-					<Answer
-						key={answer._id}
-						answer={answer}
-						onAnswerChange={onAnswersChange}
-						onAnswerDelete={onAnswerDelete}
-						canDeleteAnswer={answersValue.length > 1}
-					/>
-				))}
-				<div className="flex flex-col">
-					<Button title="Сохранить" onClick={onSave} disabled={isLoading} />
-					<Button
-						title="Удалить вопрос"
-						onClick={() => onDelete(id)}
-						disabled={isLoading || !canDeleteQuestion}
-					/>
+		<div className="flex m-auto items-center text-center justify-center">
+			<li className="w-full p-4 mb-6 flex flex-col border border-red-800 rounded-md">
+				<input
+					type="text"
+					value={titleValue}
+					onChange={onTitleChange}
+					className="mb-1 pt-3 pb-2 px-4 border border-amber-950 rounded-md text-2xl focus:border-red-800 focus:outline-none bg-red-300 hover:bg-red-400 active:shadow-none"
+				></input>
+				<div
+					className="w-full flex flex-col shadow-lg shadow-slate-600/100 border border-blue-800 rounded-md items-center bg-slate-300 hover:bg-slate-400 hover:cursor-pointer active:shadow-none"
+					onClick={onAnswerAdd}
+				>
+					<i
+						className="fa fa-plus-square fa-3x text-blue-800 hover:cursor-pointer"
+						disabled={isLoading}
+					></i>
 				</div>
-			</ul>
-		</li>
+
+				<ul>
+					{answersValue.map((answer) => (
+						<Answer
+							key={answer._id}
+							answer={answer}
+							onAnswerChange={onAnswersChange}
+							onAnswerDelete={onAnswerDelete}
+							canDeleteAnswer={answersValue.length > 1}
+						/>
+					))}
+					<div className="flex flex-col">
+						<Button title="Сохранить" onClick={onSave} disabled={isLoading} />
+						<Button
+							title="Удалить вопрос"
+							onClick={() => onDelete(id)}
+							disabled={isLoading || !canDeleteQuestion}
+						/>
+					</div>
+				</ul>
+			</li>
+		</div>
 	)
 }

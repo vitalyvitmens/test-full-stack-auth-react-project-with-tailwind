@@ -1,14 +1,20 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Loader, Question } from '../components'
 import { FinishPage } from '../pages'
-import { selectQuestions } from '../redux'
+import { loadQuestionsAsync, selectQuestions } from '../redux'
+import { useLayoutEffect } from 'react'
 
 export const QuizPage = () => {
 	const [score, setScore] = useState(0)
 	const [currentQuestion, setCurrentQuestion] = useState(0)
 	const [finished, setFinished] = useState(false)
 	const questions = useSelector(selectQuestions)
+	const dispatch = useDispatch()
+
+	useLayoutEffect(() => {
+		dispatch(loadQuestionsAsync())
+	}, [dispatch])
 
 	const onNextClick = async (answer, last) => {
 		if (answer.correct) {

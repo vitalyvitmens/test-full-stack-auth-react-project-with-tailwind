@@ -5,14 +5,14 @@ const ROLES = require('../constants/roles')
 
 // register
 
-async function register(login, password) {
+async function register(email, password) {
     if (!password) {
         throw new Error('Password is empty');
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const user = await User.create({ login, password: passwordHash })
+    const user = await User.create({ email, password: passwordHash })
     const token = generate({ id: user.id });
 
     return { user, token };
@@ -20,8 +20,8 @@ async function register(login, password) {
 
 // login
 
-async function login(login, password) {
-    const user = await User.findOne({ login });
+async function login(email, password) {
+    const user = await User.findOne({ email });
 
     if (!user) {
         throw new Error('User not found')

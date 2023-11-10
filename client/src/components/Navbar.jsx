@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout, selectUserLogin } from '../redux'
+import { logout, selectUserEmail } from '../redux'
 import { Button } from '../components'
 import { toast } from 'react-toastify'
 
 export const Navbar = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const login = useSelector(selectUserLogin)
+	const email = useSelector(selectUserEmail)
 
 	const activeStyles = {
 		color: 'white',
@@ -27,7 +27,7 @@ export const Navbar = () => {
 				QUIZ 2.0
 			</span>
 
-			{login ? (
+			{email ? (
 				<ul className="flex gap-8">
 					<li>
 						<NavLink
@@ -93,9 +93,9 @@ export const Navbar = () => {
 					className="fa fa-backward fa-2x pt-1.5 pr-2 text-blue-900 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
 				></i>
-				{login ? (
+				{email ? (
 					<div className="flex items-center">
-						<h1 className="mr-2">{login}</h1>
+						<h1 className="mr-2">{email}</h1>
 						<Button onClick={logoutHandler}>Выйти</Button>
 					</div>
 				) : (

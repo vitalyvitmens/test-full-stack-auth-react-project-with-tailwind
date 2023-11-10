@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,15 +12,27 @@ import { ROLE } from '../constants'
 import { toast } from 'react-toastify'
 
 const regFormSchema = yup.object().shape({
-	login: yup
+	// firstName: yup
+	// 	.string()
+	// 	.required('Укажите своё имя')
+	// 	.matches(/^\w$/, 'Неверно указано имя. Допускаются только буквы')
+	// 	.min(2, 'Неверно указано имя. Минимум 2 символа')
+	// 	.max(15, 'Неверно указано имя. Максимум 15 символов'),
+	// lastName: yup
+	// 	.string()
+	// 	.required('Укажите свою фамилию')
+	// 	.matches(/^\w$/, 'Неверно указана фамилия. Допускаются только буквы')
+	// 	.min(2, 'Неверно указана фамилия. Минимум 2 символа')
+	// 	.max(15, 'Неверно указана фамилия. Максимум 15 символов'),
+	email: yup
 		.string()
-		.required('Заполните логин')
+		.required('Заполните email')
 		.matches(
-			/^\w+$/,
-			'Неверно заполнен логин. Допускаются только буквы и цифры'
+			/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/,
+			'Неверно заполнен email.'
 		)
-		.min(3, 'Неверно заполнен логин. Минимум 3 символа')
-		.max(15, 'Неверно заполнен логин. Максимум 15 символов'),
+		.min(5, 'Неверно заполнен email. Минимум 5 символа')
+		.max(30, 'Неверно заполнен email. Максимум 30 символов'),
 	password: yup
 		.string()
 		.required('Заполните пароль')
@@ -44,7 +56,7 @@ export const RegistrationPage = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			login: '',
+			email: '',
 			password: '',
 			passcheck: '',
 		},
@@ -57,8 +69,8 @@ export const RegistrationPage = () => {
 
 	useResetForm(reset)
 
-	const onSubmit = ({ login, password }) => {
-		request('/register', 'POST', { login, password }).then(
+	const onSubmit = ({ email, password }) => {
+		request('/register', 'POST', { email, password }).then(
 			({ error, user }) => {
 				if (error) {
 					setServerError(`Ошибка запроса: ${error}`)
@@ -67,13 +79,13 @@ export const RegistrationPage = () => {
 
 				dispatch(setUser(user))
 				sessionStorage.setItem('userData', JSON.stringify(user))
-				toast(`${login} зарегистрировался`)
+				toast(`${email} зарегистрировался`)
 			}
 		)
 	}
 
 	const formError =
-		errors?.login?.message ||
+		errors?.email?.message ||
 		errors?.password?.message ||
 		errors?.passcheck?.message
 	const errorMessage = formError || serverError
@@ -83,40 +95,71 @@ export const RegistrationPage = () => {
 	}
 
 	return (
-		<div className="flex flex-col items-center">
-			<h2>Регистрация</h2>
+		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+			<h2 className="text-2xl font-semibold">Sign up</h2>
 			<form
-				className="flex flex-col items-center w-[260px]"
+				className="flex flex-col m-5 w-[260px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
+				<label className="text-sm px-2" htmlFor="registerEmail">
+					Электронная почта
+				</label>
 				<input
-					id="login"
-					type="text"
-					placeholder="Логин..."
-					{...register('login', {
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					id="registerEmail"
+					name="registerEmail"
+					type="email"
+					placeholder="test@example.com"
+					{...register('email', {
 						onChange: () => setServerError(null),
 					})}
 				/>
+				<label className="text-sm px-2" htmlFor="registerPassword">
+					Пароль
+				</label>
 				<input
-					id="password"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					id="registerPassword"
+					name="registerPassword"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
 						onChange: () => setServerError(null),
 					})}
-				/>
+				/>{' '}
+				<label className="text-sm px-2" htmlFor="passcheck">
+					Повторить пароль
+				</label>
 				<input
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
 					id="passcheck"
+					name="passcheck"
 					type="password"
-					placeholder="Проверка пароля..."
+					placeholder="Повтор пароля..."
 					{...register('passcheck', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<Button type="submit" disabled={!!formError}>
-					Зарегистрироваться
-				</Button>
+				<div className="m-auto mt-4">
+					<Button
+						className="m-auto"
+						bgColor="bg-green-800"
+						type="submit"
+						disabled={!!formError}
+					>
+						Регистрация
+					</Button>
+				</div>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
+				<div className="text-xs m-auto mt-2">
+					Есть аккаунт?{' '}
+					<Link
+						to="/login"
+						className="text-blue-800 text-sm underline hover:opacity-80"
+					>
+						Войти
+					</Link>
+				</div>
 			</form>
 		</div>
 	)

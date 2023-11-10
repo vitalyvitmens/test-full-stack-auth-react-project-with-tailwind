@@ -12,7 +12,7 @@ import { request } from '../utils/request'
 import { toast } from 'react-toastify'
 
 const authFormSchema = yup.object().shape({
-	login: yup
+	email: yup
 		.string()
 		.required('Заполните логин')
 		.matches(
@@ -40,7 +40,7 @@ export const AuthorizationPage = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			login: '',
+			email: '',
 			password: '',
 		},
 		resolver: yupResolver(authFormSchema),
@@ -52,8 +52,8 @@ export const AuthorizationPage = () => {
 
 	useResetForm(reset)
 
-	const onSubmit = ({ login, password }) => {
-		request('/login', 'POST', { login, password }).then(({ error, user }) => {
+	const onSubmit = ({ email, password }) => {
+		request('/login', 'POST', { email, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return
@@ -61,11 +61,11 @@ export const AuthorizationPage = () => {
 
 			dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
-			toast(`${login} авторизовался`)
+			toast(`${email} авторизовался`)
 		})
 	}
 
-	const formError = errors?.login?.message || errors?.password?.message
+	const formError = errors?.email?.message || errors?.password?.message
 	const errorMessage = formError || serverError
 
 	if (roleId !== ROLE.GUEST) {
@@ -73,22 +73,22 @@ export const AuthorizationPage = () => {
 	}
 
 	return (
-		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-md shadow-lg shadow-gray-500">
+		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<h2 className="text-2xl font-semibold">Login</h2>
 			<form
 				className="flex flex-col m-5 w-[260px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<label className="text-sm px-2" htmlFor="authLogin">
+				<label className="text-sm px-2" htmlFor="authEmail">
 					Электронная почта
 				</label>
 				<input
 					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
-					id="authLogin"
-					name="authLogin"
-					type="text"
-					placeholder="Логин..."
-					{...register('login', {
+					id="authEmail"
+					name="authEmail"
+					type="email"
+					placeholder="test@example.com"
+					{...register('email', {
 						onChange: () => setServerError(null),
 					})}
 				/>
@@ -105,7 +105,7 @@ export const AuthorizationPage = () => {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<div className="m-auto">
+				<div className="m-auto mt-4">
 					<Button
 						className="m-auto"
 						bgColor="bg-green-800"
@@ -116,7 +116,7 @@ export const AuthorizationPage = () => {
 					</Button>
 				</div>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-				<div className="text-xs">
+				<div className="text-xs m-auto mt-2">
 					Нет аккаунта?{' '}
 					<Link
 						to="/register"

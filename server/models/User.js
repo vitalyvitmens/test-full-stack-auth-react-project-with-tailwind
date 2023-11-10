@@ -3,7 +3,7 @@ const roles = require('../constants/roles')
 
 const UserSchema = mongoose.Schema(
 	{
-		login: {
+		email: {
 			type: String,
 			required: true,
 			unique: true,

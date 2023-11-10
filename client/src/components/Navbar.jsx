@@ -22,9 +22,9 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="flex mb-20 py-4 justify-between items-center text-xl">
+		<div className="w-full flex mb-20 py-2 justify-around items-center text-xl bg-[#4669a4]">
 			<span className="flex justify-center items-center px-2 text-green-800 font-extrabold text-3xl">
-				QUIZ 1.0
+				QUIZ 2.0
 			</span>
 
 			{login ? (

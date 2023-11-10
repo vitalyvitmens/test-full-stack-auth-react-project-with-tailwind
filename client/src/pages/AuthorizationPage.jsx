@@ -73,33 +73,58 @@ export const AuthorizationPage = () => {
 	}
 
 	return (
-		<div className="flex flex-col items-center">
-			<h2>Авторизация</h2>
+		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-md shadow-lg shadow-gray-500">
+			<h2 className="text-2xl font-semibold">Login</h2>
 			<form
-				className="flex flex-col items-center w-[260px]"
+				className="flex flex-col m-5 w-[260px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
+				<label className="text-sm px-2" htmlFor="authLogin">
+					Электронная почта
+				</label>
 				<input
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
 					id="authLogin"
+					name="authLogin"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
 						onChange: () => setServerError(null),
 					})}
 				/>
+				<label className="text-sm px-2" htmlFor="authPassword">
+					Пароль
+				</label>
 				<input
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
 					id="authPassword"
+					name="authPassword"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<Button type="submit" disabled={!!formError}>
-					Авторизоваться
-				</Button>
+				<div className="m-auto">
+					<Button
+						className="m-auto"
+						bgColor="bg-green-800"
+						type="submit"
+						disabled={!!formError}
+					>
+						Войти
+					</Button>
+				</div>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-				<Link to="/register">Регистрация</Link>
+				<div className="text-xs">
+					Нет аккаунта?{' '}
+					<Link
+						to="/register"
+						className="text-blue-800 text-sm underline hover:opacity-80"
+					>
+						Зарегистрироваться
+					</Link>
+				</div>
 			</form>
 		</div>
 	)

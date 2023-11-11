@@ -95,7 +95,7 @@ export const AuthorizationPage = () => {
 					Электронная почта
 				</label>
 				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
 					id="authEmail"
 					name="authEmail"
 					type="email"
@@ -108,7 +108,7 @@ export const AuthorizationPage = () => {
 					Пароль
 				</label>
 				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
 					id="authPassword"
 					name="authPassword"
 					type="password"

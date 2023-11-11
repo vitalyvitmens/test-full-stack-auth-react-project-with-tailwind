@@ -12,18 +12,24 @@ import { ROLE } from '../constants'
 import { toast } from 'react-toastify'
 
 const regFormSchema = yup.object().shape({
-	// firstName: yup
-	// 	.string()
-	// 	.required('Укажите своё имя')
-	// 	.matches(/^\w$/, 'Неверно указано имя. Допускаются только буквы')
-	// 	.min(2, 'Неверно указано имя. Минимум 2 символа')
-	// 	.max(15, 'Неверно указано имя. Максимум 15 символов'),
-	// lastName: yup
-	// 	.string()
-	// 	.required('Укажите свою фамилию')
-	// 	.matches(/^\w$/, 'Неверно указана фамилия. Допускаются только буквы')
-	// 	.min(2, 'Неверно указана фамилия. Минимум 2 символа')
-	// 	.max(15, 'Неверно указана фамилия. Максимум 15 символов'),
+	firstName: yup
+		.string()
+		.required('Укажите своё имя')
+		.matches(
+			/^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/,
+			'Неверно указано имя. Допускаются только буквы'
+		)
+		.min(2, 'Неверно указано имя. Минимум 2 символа')
+		.max(15, 'Неверно указано имя. Максимум 15 символов'),
+	lastName: yup
+		.string()
+		.required('Укажите свою фамилию')
+		.matches(
+			/^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/,
+			'Неверно указана фамилия. Допускаются только буквы'
+		)
+		.min(2, 'Неверно указана фамилия. Минимум 2 символа')
+		.max(15, 'Неверно указана фамилия. Максимум 15 символов'),
 	email: yup
 		.string()
 		.required('Заполните email')
@@ -56,6 +62,8 @@ export const RegistrationPage = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
+			firstName: '',
+			lastName: '',
 			email: '',
 			password: '',
 			passcheck: '',
@@ -69,8 +77,8 @@ export const RegistrationPage = () => {
 
 	useResetForm(reset)
 
-	const onSubmit = ({ email, password }) => {
-		request('/register', 'POST', { email, password }).then(
+	const onSubmit = ({ firstName, lastName, email, password }) => {
+		request('/register', 'POST', { firstName, lastName, email, password }).then(
 			({ error, user }) => {
 				if (error) {
 					setServerError(`Ошибка запроса: ${error}`)
@@ -79,12 +87,14 @@ export const RegistrationPage = () => {
 
 				dispatch(setUser(user))
 				sessionStorage.setItem('userData', JSON.stringify(user))
-				toast(`${email} зарегистрировался`)
+				toast(`${firstName} зарегистрировался`)
 			}
 		)
 	}
 
 	const formError =
+		errors?.firstName?.message ||
+		errors?.lastName?.message ||
 		errors?.email?.message ||
 		errors?.password?.message ||
 		errors?.passcheck?.message
@@ -101,11 +111,37 @@ export const RegistrationPage = () => {
 				className="flex flex-col m-5 w-[260px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
+				<label className="text-sm px-2" htmlFor="firstName">
+					Имя
+				</label>
+				<input
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
+					id="firstName"
+					name="firstName"
+					type="text"
+					placeholder="Иванов"
+					{...register('firstName', {
+						onChange: () => setServerError(null),
+					})}
+				/>
+				<label className="text-sm px-2" htmlFor="lastName">
+					Фамилия
+				</label>
+				<input
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
+					id="lastName"
+					name="lastName"
+					type="text"
+					placeholder="Иван"
+					{...register('lastName', {
+						onChange: () => setServerError(null),
+					})}
+				/>
 				<label className="text-sm px-2" htmlFor="registerEmail">
 					Электронная почта
 				</label>
 				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
 					id="registerEmail"
 					name="registerEmail"
 					type="email"
@@ -118,7 +154,7 @@ export const RegistrationPage = () => {
 					Пароль
 				</label>
 				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
 					id="registerPassword"
 					name="registerPassword"
 					type="password"
@@ -131,7 +167,7 @@ export const RegistrationPage = () => {
 					Повторить пароль
 				</label>
 				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#6aadfa]"
+					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
 					id="passcheck"
 					name="passcheck"
 					type="password"

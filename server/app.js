@@ -43,7 +43,12 @@ app.use(express.json())
 
 app.post('/register', async (req, res) => {
 	try {
-		const { user, token } = await register(req.body.firstName, req.body.lastName, req.body.email, req.body.password)
+		const { user, token } = await register(
+			req.body.firstName,
+			req.body.lastName,
+			req.body.email,
+			req.body.password
+		)
 
 		res
 			.cookie('token', token, { httpOnly: true })
@@ -160,17 +165,23 @@ app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
 	res.send({ data: roles })
 })
 
-app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	try {
-		const newUser = await updateUser(req.params.id, {
-			role: req.body.roleId,
-		})
+app.put(
+	'/users/:id',
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
+	async (req, res) => {
+		try {
+			const newUser = await updateUser(req.params.id, {
+				firstName: req.body.firstName,
+				lastName: req.body.lastName,
+				email: req.body.email,
+			})
 
-		res.send({ data: mapUser(newUser) })
-	} catch (error) {
-		console.error('Something went wrong!', error)
+			res.send({ data: mapUser(newUser) })
+		} catch (error) {
+			console.error('Something went wrong!', error)
+		}
 	}
-})
+)
 
 app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	await deleteUser(req.params.id)

@@ -18,7 +18,7 @@ export const Navbar = () => {
 		dispatch(logout())
 		sessionStorage.removeItem('userData')
 		navigate('/login')
-		toast('Вы вышли из системы')
+		toast(`Пользователь ${firstName} вышел из системы`)
 	}
 
 	return (
@@ -90,12 +90,18 @@ export const Navbar = () => {
 			)}
 			<div className="flex text-xl">
 				<i
-					className="fa fa-backward fa-2x pt-1.5 pr-2 text-blue-900 hover:cursor-pointer hover:opacity-70"
+					className="fa fa-backward fa-2x pt-4 pr-2 pl-2 text-blue-900 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
 				></i>
 				{firstName ? (
 					<div className="flex items-center">
-						<h1 className="mr-2">{firstName}</h1>
+						<div className="flex flex-col items-center px-2">
+							<i
+								className="fa fa-user-circle-o fa-2x text-green-800 hover:cursor-pointer"
+								onClick={() => navigate('/profile')}
+							></i>
+							<h1 className=" text-green-800 mr-2">{firstName}</h1>
+						</div>
 						<Button onClick={logoutHandler}>Выйти</Button>
 					</div>
 				) : (

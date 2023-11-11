@@ -7,6 +7,7 @@ import {
 	RegistrationPage,
 	QuizPage,
 	EditPage,
+	ProfilePage,
 } from './pages'
 import { useDispatch } from 'react-redux'
 import { loadQuestionsAsync, setUser } from './redux'
@@ -44,6 +45,7 @@ export const App = () => {
 				<Route path="/register" element={<RegistrationPage />} />
 				<Route path="/quiz" element={<QuizPage />} />
 				<Route path="/edit" element={<EditPage />} />
+				<Route path="/profile" element={<ProfilePage />} />
 				<Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
 				{/* <Route path="/users" element={<Users />} /> */}
 				{/* <Route path="/post" element={<Post />} /> */}

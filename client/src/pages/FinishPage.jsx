@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../redux'
 
 export const FinishPage = ({ score, numQuestions, onRestart }) => {
 	const navigate = useNavigate()
+  const userId = useSelector(selectUserId)
 
 	useEffect(() => {
 		const data = {
 			date: new Date(),
+      author: userId,
 			numQuestions,
 			numCorrectAnswers: score,
 		}
@@ -17,7 +21,7 @@ export const FinishPage = ({ score, numQuestions, onRestart }) => {
 
 		walkthroughs.push(data)
 		localStorage.setItem('walkthroughs', JSON.stringify(walkthroughs))
-	}, [numQuestions, score])
+	}, [numQuestions, score, userId])
 
 	return (
 		<div className="flex flex-col justify-center items-center">

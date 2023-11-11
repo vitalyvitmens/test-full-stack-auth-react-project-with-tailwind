@@ -43,7 +43,7 @@ app.use(express.json())
 
 app.post('/register', async (req, res) => {
 	try {
-		const { user, token } = await register(req.body.email, req.body.password)
+		const { user, token } = await register(req.body.firstName, req.body.lastName, req.body.email, req.body.password)
 
 		res
 			.cookie('token', token, { httpOnly: true })

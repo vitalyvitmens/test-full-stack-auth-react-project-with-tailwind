@@ -50,7 +50,7 @@ export const QuizPage = () => {
 	return finished ? (
 		<FinishPage
 			score={score}
-			numberOfQuestions={questions.length}
+			numQuestions={questions.length}
 			onRestart={onRestart}
 		/>
 	) : (

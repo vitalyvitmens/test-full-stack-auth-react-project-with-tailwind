@@ -36,8 +36,8 @@ export const MainPage = () => {
 									<Moment date={walkthrough.date} format="DD-MM-YYYY HH:mm" />
 								</div>
 								<div className="h-9 w-9">
-									{walkthrough.numberOfCorrectAnswers /
-										walkthrough.numberOfQuestions <=
+									{walkthrough.numCorrectAnswers /
+										walkthrough.numQuestions <=
 										0.3 && (
 										<img
 											className="bad rounded-md border border-amber-950"
@@ -45,11 +45,11 @@ export const MainPage = () => {
 											alt="bad.png"
 										/>
 									)}
-									{walkthrough.numberOfCorrectAnswers /
-										walkthrough.numberOfQuestions >
+									{walkthrough.numCorrectAnswers /
+										walkthrough.numQuestions >
 										0.3 &&
-										walkthrough.numberOfCorrectAnswers /
-											walkthrough.numberOfQuestions <
+										walkthrough.numCorrectAnswers /
+											walkthrough.numQuestions <
 											0.7 && (
 											<img
 												className="norm rounded-md border border-amber-950"
@@ -57,8 +57,8 @@ export const MainPage = () => {
 												alt="norm.png"
 											/>
 										)}
-									{walkthrough.numberOfCorrectAnswers /
-										walkthrough.numberOfQuestions >=
+									{walkthrough.numCorrectAnswers /
+										walkthrough.numQuestions >=
 										0.7 && (
 										<img
 											className="good rounded-md border border-amber-950"
@@ -68,8 +68,8 @@ export const MainPage = () => {
 									)}
 								</div>
 								<p className="text-blue-800">
-									Верно {walkthrough.numberOfCorrectAnswers} из{' '}
-									{walkthrough.numberOfQuestions}
+									Верно {walkthrough.numCorrectAnswers} из{' '}
+									{walkthrough.numQuestions}
 								</p>
 							</li>
 						))}

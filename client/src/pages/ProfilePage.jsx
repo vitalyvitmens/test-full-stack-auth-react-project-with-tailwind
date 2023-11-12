@@ -10,6 +10,7 @@ export const ProfilePage = () => {
 	const [firstNameValue, setFirstNameValue] = useState('')
 	const [lastNameValue, setLastNameValue] = useState('')
 	const [emailValue, setEmailValue] = useState('')
+	const [editUserData, setEditUserData] = useState(false)
 
 	const onSave = () => {
 		dispatch(
@@ -24,6 +25,7 @@ export const ProfilePage = () => {
 		})
 
 		toast(`Вы обновили свои данные`)
+		setEditUserData(!editUserData)
 	}
 
 	useLayoutEffect(() => {
@@ -34,7 +36,23 @@ export const ProfilePage = () => {
 
 	const formError = !firstNameValue || !lastNameValue || !emailValue
 
-	return (
+	return !editUserData ? (
+		<div className="w-[320px] flex flex-col px-4 py-2 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+			<div className="flex justify-end">
+				<i
+					className="fa fa-pencil-square-o fa-3x text-blue-800 hover:cursor-pointer"
+					onClick={() => setEditUserData(!editUserData)}
+				></i>
+			</div>
+			<i className="fa fa-smile-o text-[300px] text-center"></i>
+			<div className="text-center text-2xl pt-2">
+				{user.lastName} {user.firstName}
+			</div>
+			<div className="text-center text-lg pb-5 text-green-900">
+				{user.email}
+			</div>
+		</div>
+	) : (
 		<div className="w-[320px] flex flex-col px-5 py-2 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<div className="flex justify-end">
 				{formError ? (

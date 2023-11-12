@@ -47,10 +47,6 @@ export const App = () => {
 				<Route path="/edit" element={<EditPage />} />
 				<Route path="/profile" element={<ProfilePage />} />
 				<Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
-				{/* <Route path="/users" element={<Users />} /> */}
-				{/* <Route path="/post" element={<Post />} /> */}
-				{/* <Route path="/post/:id" element={<Post />} /> */}
-				{/* <Route path="/post/:id/edit" element={<Post />} /> */}
 			</Routes>
 
 			<ToastContainer position="bottom-right" />

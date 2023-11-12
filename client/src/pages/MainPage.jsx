@@ -24,7 +24,7 @@ export const MainPage = () => {
 			<h2 className="mt-2 mb-4 text-3xl text-center text-blue-800">
 				История прохождений
 			</h2>
-			<div className="p-10 flex flex-col justify-center items-center border border-amber-950 rounded-md">
+			<div className="p-10 flex flex-col justify-between border border-amber-950 rounded-md">
 				<div className="w-full flex flex-col items-center">
 					<ul className="w-[70%]">
 						{walkthroughs.map((walkthrough) => (
@@ -33,38 +33,22 @@ export const MainPage = () => {
 								className="my-2 py-2 px-4 flex justify-between border border-amber-950 rounded-md"
 							>
 								<div className="text-blue-800">
-									<Moment date={walkthrough.date} format="DD-MM-YYYY HH:mm" />
+									<Moment date={walkthrough.date} format="DD.MM.YYYYг. HH:mm" />
 								</div>
 								<div className="h-9 w-9">
-									{walkthrough.numCorrectAnswers /
-										walkthrough.numQuestions <=
+									{walkthrough.numCorrectAnswers / walkthrough.numQuestions <=
 										0.3 && (
-										<img
-											className="bad rounded-md border border-amber-950"
-											src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/bad.png?raw=true"
-											alt="bad.png"
-										/>
+										<div className="bg-bad bg-cover h-[40px] w-[40px] bg-center"></div>
 									)}
-									{walkthrough.numCorrectAnswers /
-										walkthrough.numQuestions >
+									{walkthrough.numCorrectAnswers / walkthrough.numQuestions >
 										0.3 &&
-										walkthrough.numCorrectAnswers /
-											walkthrough.numQuestions <
+										walkthrough.numCorrectAnswers / walkthrough.numQuestions <
 											0.7 && (
-											<img
-												className="norm rounded-md border border-amber-950"
-												src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/norm.png?raw=true"
-												alt="norm.png"
-											/>
+											<div className="bg-norm bg-cover h-[40px] w-[40px] bg-center"></div>
 										)}
-									{walkthrough.numCorrectAnswers /
-										walkthrough.numQuestions >=
+									{walkthrough.numCorrectAnswers / walkthrough.numQuestions >=
 										0.7 && (
-										<img
-											className="good rounded-md border border-amber-950"
-											src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/good.png?raw=true"
-											alt="good.png"
-										/>
+										<div className="bg-good bg-cover h-[40px] w-[40px] bg-center"></div>
 									)}
 								</div>
 								<p className="text-blue-800">

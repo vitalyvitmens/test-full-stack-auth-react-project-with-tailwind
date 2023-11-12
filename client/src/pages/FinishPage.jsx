@@ -6,12 +6,12 @@ import { selectUserId } from '../redux'
 
 export const FinishPage = ({ score, numQuestions, onRestart }) => {
 	const navigate = useNavigate()
-  const userId = useSelector(selectUserId)
+	const userId = useSelector(selectUserId)
 
 	useEffect(() => {
 		const data = {
 			date: new Date(),
-      author: userId,
+			author: userId,
 			numQuestions,
 			numCorrectAnswers: score,
 		}
@@ -30,28 +30,16 @@ export const FinishPage = ({ score, numQuestions, onRestart }) => {
 				Правильных ответов: <span className="text-red-700">{score}</span>
 			</p>
 			{score / numQuestions <= 0.3 && (
-				<img
-					className="bad pb-10"
-					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/bad.png?raw=true"
-					alt="bad.png"
-				/>
+				<div className="bg-bad h-[200px] w-[200px] bg-center"></div>
 			)}
 			{score / numQuestions > 0.3 && score / numQuestions < 0.7 && (
-				<img
-					className="norm pb-10"
-					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/norm.png?raw=true"
-					alt="norm.png"
-				/>
+				<div className="bg-norm h-[200px] w-[200px] bg-center"></div>
 			)}
 			{score / numQuestions >= 0.7 && (
-				<img
-					className="good pb-10"
-					src="https://github.com/vitalyvitmens/matyga_quiz/blob/main/assets/images/good.png?raw=true"
-					alt="good.png"
-				/>
+				<div className="bg-good h-[200px] w-[200px] bg-center"></div>
 			)}
 
-			<div className="flex gap-20">
+			<div className="flex gap-20 mt-8">
 				<Button title="На главную" onClick={() => navigate('/')} />
 				<Button title="Пройти ещё раз" onClick={onRestart} />
 			</div>

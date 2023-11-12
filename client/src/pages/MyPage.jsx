@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthFormError, Button } from '../components'
 import { useResetForm } from '../hooks'
 import { request } from '../utils/request'
-import { setUser, selectUserRole } from '../redux'
-import { ROLE } from '../constants'
+import { selectUser, updateUserAsync } from '../redux'
 import { toast } from 'react-toastify'
 
 const regFormSchema = yup.object().shape({
@@ -39,22 +37,9 @@ const regFormSchema = yup.object().shape({
 		)
 		.min(5, 'Неверно заполнен email. Минимум 5 символа')
 		.max(30, 'Неверно заполнен email. Максимум 30 символов'),
-	password: yup
-		.string()
-		.required('Заполните пароль')
-		.matches(
-			/^[\w#%]+$/,
-			'Неверно заполнен пароль. Допускаются буквы, цифры и знаки # %'
-		)
-		.min(6, 'Неверно заполнен пароль. Минимум 6 символов')
-		.max(30, 'Неверно заполнен пароль. Максимум 30 символов'),
-	passcheck: yup
-		.string()
-		.required('Заполните повтор пароля')
-		.oneOf([yup.ref('password'), null], 'Повтор пароля не совпадает'),
 })
 
-export const RegistrationPage = () => {
+export const MyPage = () => {
 	const {
 		register,
 		reset,
@@ -65,29 +50,34 @@ export const RegistrationPage = () => {
 			firstName: '',
 			lastName: '',
 			email: '',
-			password: '',
-			passcheck: '',
 		},
 		resolver: yupResolver(regFormSchema),
 	})
 
 	const [serverError, setServerError] = useState(null)
 	const dispatch = useDispatch()
-	const roleId = useSelector(selectUserRole)
+	const user = useSelector(selectUser)
 
 	useResetForm(reset)
 
-	const onSubmit = ({ firstName, lastName, email, password }) => {
-		request('/register', 'POST', { firstName, lastName, email, password }).then(
+	const onSubmit = ({ firstName, lastName, email }) => {
+		request('/me', 'PUT', { firstName, lastName, email }).then(
 			({ error, user }) => {
 				if (error) {
 					setServerError(`Ошибка запроса: ${error}`)
 					return
 				}
 
-				dispatch(setUser(user))
+				sessionStorage.removeItem('userData')
+				dispatch(
+					updateUserAsync(user.id, {
+						firstName,
+						lastName,
+						email,
+					})
+				)
 				sessionStorage.setItem('userData', JSON.stringify(user))
-				toast(`Пользователь ${firstName} зарегистрировался`)
+				toast(`Вы обновили свои данные`)
 			}
 		)
 	}
@@ -95,22 +85,39 @@ export const RegistrationPage = () => {
 	const formError =
 		errors?.firstName?.message ||
 		errors?.lastName?.message ||
-		errors?.email?.message ||
-		errors?.password?.message ||
-		errors?.passcheck?.message
+		errors?.email?.message
 	const errorMessage = formError || serverError
 
-	if (roleId !== ROLE.GUEST) {
-		return <Navigate to="/" />
-	}
+	// if (roleId !== ROLE.GUEST) {
+	// 	return <Navigate to="/me" />
+	// }
 
 	return (
-		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
-			<h2 className="text-2xl font-semibold">Sign up</h2>
+		<div className="w-[320px] flex flex-col px-5 py-2 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<form
 				className="flex flex-col m-5 w-[260px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
+				<div className="flex justify-end">
+					<Button
+						className="m-auto"
+						bgColor="bg-blue-400"
+						type="submit"
+						disabled={!!formError}
+					>
+						{!!formError ? (
+							<i className="fa fa-check-circle-o fa-4x text-gray-400"></i>
+						) : (
+							<i
+								className="fa fa-check-circle-o fa-4x text-green-800 hover:cursor-pointer"
+								type="submit"
+								// disabled={!!formError}
+								// onClick={onSave}
+							></i>
+						)}
+					</Button>
+				</div>
+				<i className="fa fa-smile-o text-[200px] text-center"></i>
 				<label className="text-sm px-2" htmlFor="firstName">
 					Имя
 				</label>
@@ -119,7 +126,7 @@ export const RegistrationPage = () => {
 					id="firstName"
 					name="firstName"
 					type="text"
-					placeholder="Иванов"
+					placeholder={user.firstName}
 					{...register('firstName', {
 						onChange: () => setServerError(null),
 					})}
@@ -132,7 +139,7 @@ export const RegistrationPage = () => {
 					id="lastName"
 					name="lastName"
 					type="text"
-					placeholder="Иван"
+					placeholder={user.lastName}
 					{...register('lastName', {
 						onChange: () => setServerError(null),
 					})}
@@ -145,57 +152,12 @@ export const RegistrationPage = () => {
 					id="registerEmail"
 					name="registerEmail"
 					type="email"
-					placeholder="test@example.com"
+					placeholder={user.email}
 					{...register('email', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<label className="text-sm px-2" htmlFor="registerPassword">
-					Пароль
-				</label>
-				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
-					id="registerPassword"
-					name="registerPassword"
-					type="password"
-					placeholder="Пароль..."
-					{...register('password', {
-						onChange: () => setServerError(null),
-					})}
-				/>{' '}
-				<label className="text-sm px-2" htmlFor="passcheck">
-					Повторить пароль
-				</label>
-				<input
-					className="border rounded-md py-1 px-2 m-2 border-gray-400 bg-[#e0e9f8]"
-					id="passcheck"
-					name="passcheck"
-					type="password"
-					placeholder="Повтор пароля..."
-					{...register('passcheck', {
-						onChange: () => setServerError(null),
-					})}
-				/>
-				<div className="m-auto mt-4">
-					<Button
-						className="m-auto"
-						bgColor="bg-green-800"
-						type="submit"
-						disabled={!!formError}
-					>
-						Регистрация
-					</Button>
-				</div>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-				<div className="text-xs m-auto mt-2">
-					Есть аккаунт?{' '}
-					<Link
-						to="/login"
-						className="text-blue-800 text-sm underline hover:opacity-80"
-					>
-						Войти
-					</Link>
-				</div>
 			</form>
 		</div>
 	)

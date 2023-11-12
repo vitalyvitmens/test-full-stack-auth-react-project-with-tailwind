@@ -1,13 +1,10 @@
 import { useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectUser, setUser, updateUserAsync } from '../redux'
-import { useNavigate } from 'react-router-dom'
+import { selectUser, updateUserAsync } from '../redux'
 import { toast } from 'react-toastify'
 
 export const ProfilePage = () => {
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
-
 	const user = useSelector(selectUser)
 
 	const [firstNameValue, setFirstNameValue] = useState('')
@@ -21,10 +18,11 @@ export const ProfilePage = () => {
 				lastName: lastNameValue ? lastNameValue : '',
 				email: emailValue ? emailValue : '',
 			})
-		).then(() => navigate(`/profile`))
+		).then((newUser) => {
+			sessionStorage.removeItem('userData')
+			sessionStorage.setItem('userData', JSON.stringify(newUser))
+		})
 
-		sessionStorage.removeItem('userData')
-		sessionStorage.setItem('userData', JSON.stringify(user))
 		toast(`Вы обновили свои данные`)
 	}
 

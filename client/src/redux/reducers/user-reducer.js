@@ -7,7 +7,6 @@ const initialUserState = {
 	lastName: null,
 	email: null,
 	roleId: ROLE.GUEST,
-	session: null,
 }
 
 export const userReducer = (state = initialUserState, action) => {

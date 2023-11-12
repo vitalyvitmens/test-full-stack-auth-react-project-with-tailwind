@@ -12,7 +12,7 @@ import { request } from '../utils/request'
 import { toast } from 'react-toastify'
 
 const authFormSchema = yup.object().shape({
-  	// firstName: yup
+	// firstName: yup
 	// 	.string()
 	// 	.required('Укажите своё имя')
 	// 	.matches(/^\w$/, 'Неверно указано имя. Допускаются только буквы')
@@ -73,7 +73,7 @@ export const AuthorizationPage = () => {
 
 			dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
-			toast(`${email} авторизовался`)
+			toast(`${user.firstName} авторизовался`)
 		})
 	}
 

@@ -23,8 +23,8 @@ export const Navbar = () => {
 
 	return (
 		<div className="w-full flex mb-20 py-2 justify-around items-center text-xl bg-[#4669a4] rounded-b-3xl">
-			<span className="flex justify-center items-center px-2 text-green-800 font-extrabold text-3xl">
-				QUIZ 2.0
+			<span className="flex justify-center items-center px-2 text-blue-900 font-extrabold text-3xl">
+				QUIZ 1.0
 			</span>
 
 			{firstName ? (
@@ -90,17 +90,17 @@ export const Navbar = () => {
 			)}
 			<div className="flex text-xl">
 				<i
-					className="fa fa-backward fa-2x pt-4 pr-2 pl-2 text-blue-900 hover:cursor-pointer hover:opacity-70"
+					className="fa fa-backward fa-2x pt-2 pr-2 pl-2 text-green-800 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
 				></i>
 				{firstName ? (
 					<div className="flex items-center">
 						<div className="flex flex-col items-center px-2">
 							<i
-								className="fa fa-user-circle-o fa-2x text-green-800 hover:cursor-pointer"
+								className="fa fa-user-circle-o fa-2x text-blue-900 hover:cursor-pointer"
 								onClick={() => navigate('/profile')}
 							></i>
-							<h1 className=" text-green-800 mr-2">{firstName}</h1>
+							<h1 className=" text-blue-900 mr-2">{firstName}</h1>
 						</div>
 						<Button onClick={logoutHandler}>Выйти</Button>
 					</div>

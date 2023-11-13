@@ -24,7 +24,7 @@ export const Navbar = () => {
 	return (
 		<div className="fixed top-0 z-10 w-[80%] flex mb-20 py-2 px-4 justify-around items-center bg-[#4669a4] rounded-b-3xl">
 			<span className="flex justify-center items-center px-2 text-blue-900 font-extrabold text-3xl">
-				QUIZ 1.0
+				QUIZ 2.0
 			</span>
 
 			{firstName ? (

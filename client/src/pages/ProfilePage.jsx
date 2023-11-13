@@ -1,8 +1,7 @@
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser, updateUserAsync } from '../redux'
 import { toast } from 'react-toastify'
-import { Navigate } from 'react-router-dom'
 
 export const ProfilePage = () => {
 	const dispatch = useDispatch()
@@ -16,24 +15,21 @@ export const ProfilePage = () => {
 	const onSave = () => {
 		dispatch(
 			updateUserAsync(user.id, {
-				firstName: firstNameValue ? firstNameValue : '',
-				lastName: lastNameValue ? lastNameValue : '',
-				email: emailValue ? emailValue : '',
+				firstName: firstNameValue,
+				lastName: lastNameValue,
+				email: emailValue,
 			})
 		).then((newUser) => {
 			sessionStorage.removeItem('userData')
 			sessionStorage.setItem('userData', JSON.stringify(newUser))
+			setFirstNameValue('')
+			setLastNameValue('')
+			setEmailValue('')
+			setEditUserData(!editUserData)
 		})
 
 		toast(`Вы обновили свои данные`)
-		setEditUserData(!editUserData)
 	}
-
-	useLayoutEffect(() => {
-		setFirstNameValue(firstNameValue)
-		setLastNameValue(lastNameValue)
-		setEmailValue(emailValue)
-	}, [dispatch, emailValue, firstNameValue, lastNameValue, user])
 
 	const formError = !firstNameValue || !lastNameValue || !emailValue
 
@@ -56,26 +52,20 @@ export const ProfilePage = () => {
 	) : (
 		<div className="w-[320px] flex flex-col mt-40 px-5 py-4 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<div className="flex justify-end">
-				{formError ? (
-					<div className="flex flex-row w-full justify-between">
-						<i
-							className="fa fa-arrow-left fa-3x text-blue-800 hover:cursor-pointer"
-							onClick={() => setEditUserData(!editUserData)}
-						></i>
+				<div className="flex flex-row w-full justify-between">
+					<i
+						className="fa fa-arrow-left fa-3x text-blue-800 hover:cursor-pointer"
+						onClick={() => setEditUserData(!editUserData)}
+					></i>
+					{formError ? (
 						<i className="fa fa-check-circle-o fa-3x text-gray-400"></i>
-					</div>
-				) : (
-					<div className="flex flex-row w-full justify-between">
-						<i
-							className="fa fa-arrow-left fa-3x text-blue-800 hover:cursor-pointer"
-							onClick={() => setEditUserData(!editUserData)}
-						></i>
+					) : (
 						<i
 							className="fa fa-check-circle-o fa-3x text-green-800 hover:cursor-pointer"
 							onClick={onSave}
 						></i>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 			<i className="fa fa-smile-o text-[200px] text-center"></i>
 			<div
@@ -97,6 +87,11 @@ export const ProfilePage = () => {
 					// 	onChange: () => setServerError(null),
 					// })}
 				/>
+				{!firstNameValue ? (
+					<div className="px-3 text-red-700 text-xs">
+						Поле не должно быть пустым
+					</div>
+				) : null}
 				<label className="text-sm px-2" htmlFor="lastName">
 					Фамилия
 				</label>
@@ -112,6 +107,11 @@ export const ProfilePage = () => {
 					// 	onChange: () => setServerError(null),
 					// })}
 				/>
+				{!lastNameValue ? (
+					<div className="px-3 text-red-700 text-xs">
+						Поле не должно быть пустым
+					</div>
+				) : null}
 				<label className="text-sm px-2" htmlFor="registerEmail">
 					Электронная почта
 				</label>
@@ -127,6 +127,11 @@ export const ProfilePage = () => {
 					// 	onChange: () => setServerError(null),
 					// })}
 				/>
+				{!emailValue ? (
+					<div className="px-3 text-red-700 text-xs">
+						Почта должна соответствовать шаблону {user.email}
+					</div>
+				) : null}
 			</div>
 		</div>
 	)

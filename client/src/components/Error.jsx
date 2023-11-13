@@ -4,7 +4,7 @@ import { PROP_TYPE } from '../constants'
 export const Error = ({ error }) =>
 	error && (
 		<>
-			<div className="flex flex-col items-center text-sm/[18px]">
+			<div className="flex flex-col items-center text-sm/[18px] pt-40">
 				<h2 className="my-5 text-xl">{error}</h2>
 				<div className="bg-dribbble h-[600px] w-[800px] bg-center"></div>
 				<Link

@@ -22,7 +22,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="fixed top-0 z-10 w-full flex mb-20 py-2 justify-around items-center text-center text-xl bg-[#4669a4] rounded-b-3xl">
+		<div className="fixed top-0 z-10 w-[80%] flex mb-20 py-2 px-4 justify-around items-center bg-[#4669a4] rounded-b-3xl">
 			<span className="flex justify-center items-center px-2 text-blue-900 font-extrabold text-3xl">
 				QUIZ 1.0
 			</span>
@@ -32,7 +32,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/"
-							className="text-xl text-gray-400 hover:text-white"
+							className="text-lg text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Главная
@@ -41,7 +41,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/quiz"
-							className="text-xl text-gray-400 hover:text-white"
+							className="text-lg text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Викторина
@@ -50,7 +50,7 @@ export const Navbar = () => {
 					<li>
 						<NavLink
 							to="/edit"
-							className="text-xl text-gray-400 hover:text-white"
+							className="text-lg text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Редактировать

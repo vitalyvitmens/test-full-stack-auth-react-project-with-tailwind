@@ -74,16 +74,7 @@ export const Navbar = () => {
 							className="text-xl text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
-							Register
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to="/login"
-							className="text-xl text-gray-400 hover:text-white"
-							style={({ isActive }) => (isActive ? activeStyles : undefined)}
-						>
-							Login
+							Регистрация
 						</NavLink>
 					</li>
 				</ul>

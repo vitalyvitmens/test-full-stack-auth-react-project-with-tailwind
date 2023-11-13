@@ -73,7 +73,7 @@ export const AuthorizationPage = () => {
 
 			dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
-			toast(`${user.firstName} авторизовался`)
+			toast(`Пользователь ${user.firstName} авторизовался`)
 		})
 	}
 
@@ -85,7 +85,7 @@ export const AuthorizationPage = () => {
 	}
 
 	return (
-		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+		<div className="w-[320px] flex flex-col p-5 mt-40 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<h2 className="text-2xl font-semibold">Login</h2>
 			<form
 				className="flex flex-col m-5 w-[260px]"

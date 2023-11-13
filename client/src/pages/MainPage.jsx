@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Moment from 'react-moment'
 import { Button } from '../components'
+import { useDispatch } from 'react-redux'
+import Moment from 'react-moment'
+import { loadQuestionsAsync } from '../redux'
 
 export const MainPage = () => {
 	const [walkthroughs, setwalkthroughs] = useState([])
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
-	useEffect(() => {
+	useLayoutEffect(() => {
+		dispatch(loadQuestionsAsync())
 		setwalkthroughs(
 			localStorage.getItem('walkthroughs')
 				? JSON.parse(localStorage.getItem('walkthroughs'))
 				: []
 		)
-	}, [])
+	}, [dispatch])
 
 	return (
 		<>

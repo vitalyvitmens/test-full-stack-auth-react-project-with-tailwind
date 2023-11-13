@@ -128,8 +128,8 @@ export const ProfilePage = () => {
 					// })}
 				/>
 				{!emailValue ? (
-					<div className="px-3 text-red-700 text-xs">
-						Почта должна соответствовать шаблону {user.email}
+					<div className="px-3 text-red-800 text-xs">
+						Почта должна соответствовать шаблону test@example.com
 					</div>
 				) : null}
 			</div>

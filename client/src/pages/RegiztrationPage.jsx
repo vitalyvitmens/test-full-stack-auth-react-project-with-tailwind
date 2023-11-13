@@ -105,7 +105,7 @@ export const RegistrationPage = () => {
 	}
 
 	return (
-		<div className="w-[320px] flex flex-col p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+		<div className="w-[320px] flex flex-col mt-40 p-5 mx-auto items-center border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<h2 className="text-2xl font-semibold">Sign up</h2>
 			<form
 				className="flex flex-col m-5 w-[260px]"

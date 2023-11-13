@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { selectUserId } from '../redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addWalkthroughAsync, selectUserId } from '../redux'
+import { toast } from 'react-toastify'
 
 export const FinishPage = ({ score, numQuestions, onRestart }) => {
 	const navigate = useNavigate()
 	const userId = useSelector(selectUserId)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		const data = {
@@ -21,7 +23,28 @@ export const FinishPage = ({ score, numQuestions, onRestart }) => {
 
 		walkthroughs.push(data)
 		localStorage.setItem('walkthroughs', JSON.stringify(walkthroughs))
-	}, [numQuestions, score, userId])
+
+		const dataWalkthrough = {
+			id: userId,
+			title: new Date().toString(),
+			publishedAt: new Date(),
+			numCorrectAnswers: score,
+			walkthroughs: [
+				{
+					author: userId,
+					date: new Date(),
+					numQuestions,
+					numCorrectAnswers: score,
+				},
+			],
+		}
+
+		const newWalkthrough = addWalkthroughAsync(userId,  dataWalkthrough )
+    console.log('newWalkthrough', newWalkthrough)
+		toast(`Вы обновили свои данные в moongoDB`)
+    return newWalkthrough
+
+	}, [dispatch, numQuestions, score, userId])
 
 	return (
 		<div className="flex flex-col mt-40 justify-center items-center">

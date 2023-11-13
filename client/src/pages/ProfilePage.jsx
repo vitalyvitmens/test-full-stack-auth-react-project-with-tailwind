@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser, updateUserAsync } from '../redux'
 import { toast } from 'react-toastify'
+import { Navigate } from 'react-router-dom'
 
 export const ProfilePage = () => {
 	const dispatch = useDispatch()
@@ -37,7 +38,7 @@ export const ProfilePage = () => {
 	const formError = !firstNameValue || !lastNameValue || !emailValue
 
 	return !editUserData ? (
-		<div className="w-[320px] flex flex-col px-4 py-2 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+		<div className="w-[320px] flex flex-col mt-40 py-4 px-4 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<div className="flex justify-end">
 				<i
 					className="fa fa-pencil-square-o fa-3x text-blue-800 hover:cursor-pointer"
@@ -53,15 +54,27 @@ export const ProfilePage = () => {
 			</div>
 		</div>
 	) : (
-		<div className="w-[320px] flex flex-col px-5 py-2 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
+		<div className="w-[320px] flex flex-col mt-40 px-5 py-4 mx-auto border border-gray-400 rounded-2xl shadow-lg shadow-gray-500">
 			<div className="flex justify-end">
 				{formError ? (
-					<i className="fa fa-check-circle-o fa-4x text-gray-400"></i>
+					<div className="flex flex-row w-full justify-between">
+						<i
+							className="fa fa-arrow-left fa-3x text-blue-800 hover:cursor-pointer"
+							onClick={() => setEditUserData(!editUserData)}
+						></i>
+						<i className="fa fa-check-circle-o fa-3x text-gray-400"></i>
+					</div>
 				) : (
-					<i
-						className="fa fa-check-circle-o fa-4x text-green-800 hover:cursor-pointer"
-						onClick={onSave}
-					></i>
+					<div className="flex flex-row w-full justify-between">
+						<i
+							className="fa fa-arrow-left fa-3x text-blue-800 hover:cursor-pointer"
+							onClick={() => setEditUserData(!editUserData)}
+						></i>
+						<i
+							className="fa fa-check-circle-o fa-3x text-green-800 hover:cursor-pointer"
+							onClick={onSave}
+						></i>
+					</div>
 				)}
 			</div>
 			<i className="fa fa-smile-o text-[200px] text-center"></i>

@@ -51,7 +51,7 @@ export const EditPage = () => {
 	}
 
 	return (
-		<div className="h-full w-[80%]">
+		<div className="h-full w-[80%]  mt-40">
 			<div className="flex justify-between pb-5">
 				<Button
 					title="Добавить вопрос"

@@ -22,7 +22,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="w-full flex mb-20 py-2 justify-around items-center text-xl bg-[#4669a4] rounded-b-3xl">
+		<div className="fixed top-0 z-10 w-full flex mb-20 py-2 justify-around items-center text-center text-xl bg-[#4669a4] rounded-b-3xl">
 			<span className="flex justify-center items-center px-2 text-blue-900 font-extrabold text-3xl">
 				QUIZ 1.0
 			</span>

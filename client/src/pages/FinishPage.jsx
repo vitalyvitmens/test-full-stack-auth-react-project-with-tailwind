@@ -37,16 +37,10 @@ export const FinishPage = ({ score, numQuestions, onRestart }) => {
 			numCorrectAnswers: score,
 		}
 
-		dispatch(addWalkthroughAsync(newWalkthrough)).then(() => {
-			dispatch(loadWalkthroughsAsync()).then((data) => {
-				// console.log('data:', data)
-			})
-
-			toast(`Вы обновили walkthroughs в moongoDB`)
-		})
+		dispatch(addWalkthroughAsync(newWalkthrough))
+		toast(`Вы обновили walkthroughs в moongoDB`)
 	}, [dispatch, numQuestions, score, userId])
 
-	console.log('walkthroughs[1]:', walkthroughs[1])
 
 	return (
 		<div className="flex flex-col mt-40 justify-center items-center">

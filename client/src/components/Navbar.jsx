@@ -62,7 +62,7 @@ export const Navbar = () => {
 							className="text-lg text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
-							Walkthroughs
+							Мои тесты
 						</NavLink>
 					</li>
 				</ul>

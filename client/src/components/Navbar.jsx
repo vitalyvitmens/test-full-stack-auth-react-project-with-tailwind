@@ -56,6 +56,15 @@ export const Navbar = () => {
 							Редактировать
 						</NavLink>
 					</li>
+					<li>
+						<NavLink
+							to="/walkthroughs"
+							className="text-lg text-gray-400 hover:text-white"
+							style={({ isActive }) => (isActive ? activeStyles : undefined)}
+						>
+							Walkthroughs
+						</NavLink>
+					</li>
 				</ul>
 			) : (
 				<ul className="flex gap-8">

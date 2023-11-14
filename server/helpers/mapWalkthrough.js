@@ -1,6 +1,7 @@
 module.exports = function (walkthrough) {
 	return {
-		id: walkthrough._id,
+		id: walkthrough.id,
+		title: walkthrough?.title,
 		author: walkthrough?.author?.firstName,
 		numQuestions: walkthrough.numQuestions,
 		numCorrectAnswers: walkthrough.numCorrectAnswers,

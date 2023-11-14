@@ -2,12 +2,18 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addWalkthroughAsync, selectUserId } from '../redux'
+import {
+	addWalkthroughAsync,
+	loadWalkthroughsAsync,
+	selectUserId,
+	selectWalkthroughs,
+} from '../redux'
 import { toast } from 'react-toastify'
 
 export const FinishPage = ({ score, numQuestions, onRestart }) => {
 	const navigate = useNavigate()
 	const userId = useSelector(selectUserId)
+	const walkthroughs = useSelector(selectWalkthroughs)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -24,27 +30,23 @@ export const FinishPage = ({ score, numQuestions, onRestart }) => {
 		walkthroughs.push(data)
 		localStorage.setItem('walkthroughs', JSON.stringify(walkthroughs))
 
-		const dataWalkthrough = {
-			id: userId,
-			title: new Date().toString(),
-			publishedAt: new Date(),
+		const newWalkthrough = {
+			title: 'TITLE',
+			author: userId,
+			numQuestions,
 			numCorrectAnswers: score,
-			walkthroughs: [
-				{
-					author: userId,
-					date: new Date(),
-					numQuestions,
-					numCorrectAnswers: score,
-				},
-			],
 		}
 
-		const newWalkthrough = addWalkthroughAsync(userId,  dataWalkthrough )
-    console.log('newWalkthrough', newWalkthrough)
-		toast(`Вы обновили свои данные в moongoDB`)
-    return newWalkthrough
+		dispatch(addWalkthroughAsync(newWalkthrough)).then(() => {
+			dispatch(loadWalkthroughsAsync()).then((data) => {
+				// console.log('data:', data)
+			})
 
+			toast(`Вы обновили walkthroughs в moongoDB`)
+		})
 	}, [dispatch, numQuestions, score, userId])
+
+	console.log('walkthroughs[1]:', walkthroughs[1])
 
 	return (
 		<div className="flex flex-col mt-40 justify-center items-center">

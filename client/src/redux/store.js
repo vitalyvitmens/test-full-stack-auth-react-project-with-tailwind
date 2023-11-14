@@ -12,6 +12,7 @@ import {
 	postReducer,
 	postsReducer,
 	questionReducer,
+	walkthroughReducer,
 	quizReducer,
 	quizsReducer,
 } from './'
@@ -23,6 +24,7 @@ const reducer = combineReducers({
 	post: postReducer,
 	posts: postsReducer,
 	question: questionReducer,
+	walkthrough: walkthroughReducer,
 	quiz: quizReducer,
 	quizs: quizsReducer,
 })

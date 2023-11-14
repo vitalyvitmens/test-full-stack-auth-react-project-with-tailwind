@@ -1,6 +1,6 @@
 import { ACTION_TYPE } from '../../redux'
 
-export const addWalkthrough = (walkthrough) => ({
+export const addWalkthrough = (walkthroughData) => ({
 	type: ACTION_TYPE.ADD_WALKTHROUGH,
-	payload: walkthrough,
+	payload: walkthroughData,
 })

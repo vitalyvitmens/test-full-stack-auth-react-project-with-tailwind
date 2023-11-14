@@ -37,6 +37,8 @@ const mapWalkthrough = require('./helpers/mapWalkthrough')
 const {
 	addWalkthrough,
 	deleteWalkthrough,
+  getWalkthrough,
+  editWalkthrough,
 } = require('./controllers/walkthrough')
 
 const PORT = process.env.PORT || 3001
@@ -100,72 +102,109 @@ app.get('/posts/:id', async (req, res) => {
 	res.send({ data: mapPost(post) })
 })
 
-app.get(
-	'/walkthroughs',
-	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
-	async (req, res) => {
-		const walkthroughs = await getWalkthrough()
+// app.get(
+// 	'/walkthroughs',
+// 	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
+// 	async (req, res) => {
+// 		const walkthroughs = await getWalkthrough()
 
-		res.send({ data: walkthroughs.map(mapWalkthrough) })
-	}
-)
+// 		res.send({ data: walkthroughs.map(mapWalkthrough) })
+// 	}
+// )
 
-app.post('/quizs/:id/walkthroughs', async (req, res) => {
+// app.post('/quizs/:id/walkthroughs', async (req, res) => {
+// 	try {
+// 		const newWalkthrough = await addWalkthrough(req.params.id, {
+// 			author: req.user.id,
+// 			numQuestions: req.body.numQuestions,
+// 			numCorrectAnswers: req.body.numCorrectAnswers,
+// 		})
+
+// 		res.send({ data: mapWalkthrough(newWalkthrough) })
+// 	} catch (error) {
+// 		console.error('Something went wrong!', error)
+// 	}
+// })
+
+// app.delete(
+// 	'/quizs/:quizId/walkthroughs/:walkthroughId',
+// 	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
+// 	async (req, res) => {
+// 		await deleteWalkthrough(req.params.quizId, req.params.walkthroughId)
+
+// 		res.send({ error: null })
+// 	}
+// )
+
+// app.post(
+// 	'/quizs',
+// 	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
+// 	async (req, res) => {
+// 		try {
+// 			const newQuiz = await addQuiz({
+// 				title: req.body.title,
+// 			})
+
+// 			res.send({ data: mapQuiz(newQuiz) })
+// 		} catch (error) {
+// 			console.error('Something went wrong!', error)
+// 		}
+// 	}
+// )
+
+// app.patch('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
+// 	try {
+// 		const updatedQuiz = await editQuiz(req.params.id, {
+// 			title: req.body.title,
+// 		})
+
+// 		res.send({ data: mapQuiz(updatedQuiz) })
+// 	} catch (error) {
+// 		console.error('Something went wrong!', error)
+// 	}
+// })
+
+// app.delete('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
+// 	await deleteQuiz(req.params.id)
+
+// 	res.send({ error: null })
+// })
+
+app.get('/walkthroughs', async (req, res) => {
+	const walkthroughs = await getWalkthrough()
+
+	res.json(walkthroughs)
+})
+
+app.post('/walkthroughs', async (req, res) => {
 	try {
-		const newWalkthrough = await addWalkthrough(req.params.id, {
-			author: req.user.id,
-			numQuestions: req.body.numQuestions,
-			numCorrectAnswers: req.body.numCorrectAnswers,
-		})
+		const newWalkthrough = await addWalkthrough(req.body)
 
-		res.send({ data: mapWalkthrough(newWalkthrough) })
+		res.send(newWalkthrough)
+		// res.send({ data: mapQuestion(newQuestion) })
 	} catch (error) {
 		console.error('Something went wrong!', error)
 	}
 })
 
-app.delete(
-	'/quizs/:quizId/walkthroughs/:walkthroughId',
-	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
-	async (req, res) => {
-		await deleteWalkthrough(req.params.quizId, req.params.walkthroughId)
-
-		res.send({ error: null })
-	}
-)
-
-app.post(
-	'/quizs',
-	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
-	async (req, res) => {
-		try {
-			const newQuiz = await addQuiz({
-				title: req.body.title,
-			})
-
-			res.send({ data: mapQuiz(newQuiz) })
-		} catch (error) {
-			console.error('Something went wrong!', error)
-		}
-	}
-)
-
-app.patch('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
+app.put('/walkthroughs/:id', async (req, res) => {
 	try {
-		const updatedQuiz = await editQuiz(req.params.id, {
-			title: req.body.title,
-		})
+		await editWalkthrough(req.params.id, req.body)
 
-		res.send({ data: mapQuiz(updatedQuiz) })
+		res.json({
+			_id: req.params.id,
+			...req.body,
+		})
 	} catch (error) {
 		console.error('Something went wrong!', error)
 	}
 })
 
-app.delete('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
-	await deleteQuiz(req.params.id)
+app.delete('/walkthroughs/:id', async (req, res) => {
+	await deleteWalkthrough(req.params.id)
 
-	res.send({ error: null })
+	res.json(req.params.id)
+	// res.send({ error: null })
 })
 
 app.use(authenticated)

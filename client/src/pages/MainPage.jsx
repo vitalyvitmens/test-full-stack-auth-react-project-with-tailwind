@@ -10,8 +10,6 @@ import {
 	selectUsers,
 	selectUserFirstName,
 	selectWalkthroughs,
-	setUser,
-	setUserData,
 } from '../redux'
 
 export const MainPage = () => {
@@ -21,7 +19,6 @@ export const MainPage = () => {
 	const walkthroughs = useSelector(selectWalkthroughs)
 	const firstName = useSelector(selectUserFirstName)
 	const user = useSelector(selectUsers)
-	console.log(user.data)
 
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())
@@ -54,11 +51,11 @@ export const MainPage = () => {
 							<div className=" text-xl text-black">{title}</div>
 							<div className="p-4 text-blue-800">{_id}</div>
 							<div>Количество вопросов: {numQuestions}</div>
-							<div>
+							<div className="flex flex-row">
+								<div className="pr-1">Автор теста: </div>
 								{user.data.map(({ id, lastName, firstName }) => (
 									<div key={id}>
-										Автор теста: {author === id && lastName}{' '}
-										{author === id && firstName}
+										{author === id && lastName} {author === id && firstName}
 									</div>
 								))}
 							</div>

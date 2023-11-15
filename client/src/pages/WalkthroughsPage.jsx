@@ -5,6 +5,7 @@ import {
 	loadWalkthroughsAsync,
 	selectWalkthroughs,
 	selectUserFirstName,
+	selectUserLastName,
 } from '../redux'
 import Moment from 'react-moment'
 import { useNavigate } from 'react-router-dom'
@@ -15,6 +16,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const firstName = useSelector(selectUserFirstName)
+	const lastName = useSelector(selectUserLastName)
 	const walkthroughs = useSelector(selectWalkthroughs)
 
 	useLayoutEffect(() => {
@@ -46,7 +48,9 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 					></input>
 				</div>
 				<div>Количество вопросов: 10</div>
-				<div>Автор теста: Кузьминов Олег</div>
+				<div>
+					Автор теста: {lastName} {firstName}
+				</div>
 				<div>Дата создания: 05.02.2003</div>
 			</div>
 			<div className="py-5">

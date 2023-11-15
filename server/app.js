@@ -226,6 +226,30 @@ app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
 	res.send({ data: roles })
 })
 
+app.put(
+	'/users/:id',
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
+	async (req, res) => {
+		try {
+			const newUser = await updateUser(req.params.id, {
+				firstName: req.body.firstName,
+				lastName: req.body.lastName,
+				email: req.body.email,
+			})
+
+			res.send({ data: mapUser(newUser) })
+		} catch (error) {
+			console.error('Something went wrong!', error)
+		}
+	}
+)
+
+app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+	await deleteUser(req.params.id)
+
+	res.send({ error: null })
+})
+
 app.use(authenticated)
 
 app.get('/questions', async (req, res) => {
@@ -321,30 +345,6 @@ app.patch('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 
 app.delete('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	await deletePost(req.params.id)
-
-	res.send({ error: null })
-})
-
-app.put(
-	'/users/:id',
-	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
-	async (req, res) => {
-		try {
-			const newUser = await updateUser(req.params.id, {
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				email: req.body.email,
-			})
-
-			res.send({ data: mapUser(newUser) })
-		} catch (error) {
-			console.error('Something went wrong!', error)
-		}
-	}
-)
-
-app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	await deleteUser(req.params.id)
 
 	res.send({ error: null })
 })

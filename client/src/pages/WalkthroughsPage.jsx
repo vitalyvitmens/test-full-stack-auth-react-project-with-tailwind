@@ -28,7 +28,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 		dispatch(loadWalkthroughsAsync())
 		dispatch(loadUsersAsync())
 		setIsLoading(false)
-	}, [dispatch, numQuestions, score])
+	}, [dispatch, numQuestions, score, isLoading])
 
 	if (!walkthroughs.length) {
 		return <Loader />
@@ -54,7 +54,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 						className="mb-1 pt-3 pb-2 px-4 border border-amber-950 rounded-md text-2xl focus:border-red-800 focus:outline-none bg-red-300 hover:bg-red-400 active:shadow-none"
 					></input>
 				</div>
-				<div>Количество вопросов: 10</div>
+				<div>Количество вопросов: 7</div>
 				<div>
 					Автор теста: {lastName} {firstName}
 				</div>

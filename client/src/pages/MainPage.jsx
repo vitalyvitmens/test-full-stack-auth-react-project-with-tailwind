@@ -1,10 +1,13 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Loader } from '../components'
 import { useDispatch, useSelector } from 'react-redux'
 import Moment from 'react-moment'
-import { loadWalkthroughsAsync, selectWalkthroughs } from '../redux'
-import { WalkthroughsPage } from './WalkthroughsPage'
+import {
+	deleteWalkthroughAsync,
+	loadWalkthroughsAsync,
+	selectWalkthroughs,
+} from '../redux'
 
 export const MainPage = () => {
 	const navigate = useNavigate()
@@ -14,6 +17,15 @@ export const MainPage = () => {
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())
 	}, [dispatch])
+
+	// const onWalkthroughDelete = ({ target, _id }) => {
+	//   console.log(target.value, _id)
+	// 	dispatch(deleteWalkthroughAsync(target.value))
+	// }
+
+	const onWalkthroughDelete = (_id) => {
+		dispatch(deleteWalkthroughAsync(_id)).then((data) => console.log(data))
+	}
 
 	if (!walkthroughs.length) {
 		return <Loader />
@@ -65,7 +77,10 @@ export const MainPage = () => {
 									<Button
 										title="Удалить"
 										fontSize="text-xl"
-										onClick={() => navigate('/walkthroughs')}
+										// onClick={(e) => console.log(e.target.value, _id)}
+										// onClick={onWalkthroughDelete}
+										onDelete={() => onWalkthroughDelete(_id)}
+										// onClick={() => onDelete(id)}
 									/>
 								</div>
 							</li>

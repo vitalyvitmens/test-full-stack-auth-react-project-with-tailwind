@@ -37,9 +37,9 @@ const mapWalkthrough = require('./helpers/mapWalkthrough')
 const {
 	addWalkthrough,
 	deleteWalkthrough,
-  getWalkthrough,
-  getItemWalkthrough,
-  editWalkthrough,
+	getWalkthrough,
+	getItemWalkthrough,
+	editWalkthrough,
 } = require('./controllers/walkthrough')
 
 const PORT = process.env.PORT || 3001
@@ -183,7 +183,6 @@ app.get('/walkthroughs/:id', async (req, res) => {
 	res.send({ data: mapPost(walkthrough) })
 })
 
-
 app.post('/walkthroughs', async (req, res) => {
 	try {
 		const newWalkthrough = await addWalkthrough(req.body)
@@ -213,6 +212,18 @@ app.delete('/walkthroughs/:id', async (req, res) => {
 
 	// res.json(req.params.id)
 	res.send({ error: null })
+})
+
+app.get('/users', async (req, res) => {
+	const users = await getUsers()
+
+	res.send({ data: users.map(mapUser) })
+})
+
+app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
+	const roles = getRoles()
+
+	res.send({ data: roles })
 })
 
 app.use(authenticated)
@@ -312,18 +323,6 @@ app.delete('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	await deletePost(req.params.id)
 
 	res.send({ error: null })
-})
-
-app.get('/users', async (req, res) => {
-	const users = await getUsers()
-
-	res.send({ data: users.map(mapUser) })
-})
-
-app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const roles = getRoles()
-
-	res.send({ data: roles })
 })
 
 app.put(

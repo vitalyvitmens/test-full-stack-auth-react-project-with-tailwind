@@ -18,7 +18,9 @@ export const MainPage = () => {
 	const dispatch = useDispatch()
 	const walkthroughs = useSelector(selectWalkthroughs)
 	const firstName = useSelector(selectUserFirstName)
+  console.log(firstName)
 	const user = useSelector(selectUsers)
+  console.log(user.data)
 
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())

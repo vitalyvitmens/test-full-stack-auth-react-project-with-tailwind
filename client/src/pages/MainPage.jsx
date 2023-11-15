@@ -44,7 +44,6 @@ export const MainPage = () => {
 				{walkthroughs.map(({ _id, title, author, numQuestions, createdAt }) => (
 					<ul className="" key={_id}>
 						<li className="flex flex-col p-2 justify-between border border-amber-950 rounded-md text-sm">
-							<div className=" text-xl text-black">Название теста:</div>
 							<div className=" text-xl text-black">{title}</div>
 							<div className="p-4 text-blue-800">{_id}</div>
 							<div>Количество вопросов: {numQuestions}</div>

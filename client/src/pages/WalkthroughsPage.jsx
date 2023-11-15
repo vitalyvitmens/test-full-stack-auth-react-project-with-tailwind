@@ -2,49 +2,49 @@ import { useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Loader } from '../components'
 import {
-	addWalkthroughAsync,
 	loadWalkthroughsAsync,
-	deleteWalkthroughAsync,
 	selectWalkthroughs,
-	selectUserId,
+	selectUserFirstName,
 } from '../redux'
 import Moment from 'react-moment'
 import { useNavigate } from 'react-router-dom'
 
 export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 	const [isLoading, setIsLoading] = useState(false)
+	const [titleValue, setTitleValue] = useState('Название теста 1')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	const userId = useSelector(selectUserId)
+	const firstName = useSelector(selectUserFirstName)
 	const walkthroughs = useSelector(selectWalkthroughs)
 
 	useLayoutEffect(() => {
 		setIsLoading(true)
 
-		// dispatch(loadWalkthroughsAsync())
-
-		// const newWalkthrough = {
-		// 	title: 'TITLE',
-		// 	author: userId,
-		// 	numQuestions,
-		// 	numCorrectAnswers: score,
-		// }
-
-		// dispatch(addWalkthroughAsync(newWalkthrough)).then(() => {
 		dispatch(loadWalkthroughsAsync()).then(() => {
 			setIsLoading(false)
 		})
-		// })
-	}, [dispatch, numQuestions, score, userId])
+	}, [dispatch, numQuestions, score])
 
 	if (!walkthroughs.length) {
 		return <Loader />
 	}
 
+	const onTitleChange = ({ target }) => {
+		setTitleValue(target.value)
+	}
+
 	return (
 		<div className="h-full w-[80%]  mt-40">
 			<div className="flex flex-col text-base">
-				<div className="text-2xl py-1">Название теста 1</div>
+				<div className="text-2xl py-1">
+					{' '}
+					<input
+						type="text"
+						value={titleValue}
+						onChange={onTitleChange}
+						className="mb-1 pt-3 pb-2 px-4 border border-amber-950 rounded-md text-2xl focus:border-red-800 focus:outline-none bg-red-300 hover:bg-red-400 active:shadow-none"
+					></input>
+				</div>
 				<div>Количество вопросов: 10</div>
 				<div>Автор теста: Кузьминов Олег</div>
 				<div>Дата создания: 05.02.2003</div>
@@ -54,6 +54,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 					title="Запустить тест"
 					bgColor="bg-blue-600"
 					fontSize="text-xl"
+					disabled={!firstName}
 					onClick={() => navigate('/quiz')}
 				/>
 			</div>

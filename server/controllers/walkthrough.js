@@ -17,8 +17,8 @@ const editWalkthrough = async (id, updatedWalkthrough) => {
 }
 
 // delete
-const deleteWalkthrough = async (id) => {
-	await Walkthrough.deleteOne({ _id: id })
+function deleteWalkthrough(id) {
+	return Walkthrough.deleteOne({ _id: id })
 }
 
 module.exports = {

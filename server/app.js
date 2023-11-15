@@ -203,8 +203,8 @@ app.put('/walkthroughs/:id', async (req, res) => {
 app.delete('/walkthroughs/:id', async (req, res) => {
 	await deleteWalkthrough(req.params.id)
 
-	res.json(req.params.id)
-	// res.send({ error: null })
+	// res.json(req.params.id)
+	res.send({ error: null })
 })
 
 app.use(authenticated)

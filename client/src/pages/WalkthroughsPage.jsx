@@ -9,9 +9,11 @@ import {
 	selectUserId,
 } from '../redux'
 import Moment from 'react-moment'
+import { useNavigate } from 'react-router-dom'
 
 export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 	const [isLoading, setIsLoading] = useState(false)
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const userId = useSelector(selectUserId)
 	const walkthroughs = useSelector(selectWalkthroughs)
@@ -52,6 +54,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 					title="Запустить тест"
 					bgColor="bg-blue-600"
 					fontSize="text-xl"
+					onClick={() => navigate('/quiz')}
 				/>
 			</div>
 

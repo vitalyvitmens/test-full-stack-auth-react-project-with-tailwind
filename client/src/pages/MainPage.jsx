@@ -6,25 +6,25 @@ import Moment from 'react-moment'
 import {
 	deleteWalkthroughAsync,
 	loadWalkthroughsAsync,
+	selectUserFirstName,
 	selectWalkthroughs,
 } from '../redux'
 
 export const MainPage = () => {
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const walkthroughs = useSelector(selectWalkthroughs)
+	const firstName = useSelector(selectUserFirstName)
 
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())
-	}, [dispatch])
+		setIsLoading(false)
+	}, [dispatch, isLoading])
 
-	// const onWalkthroughDelete = ({ target, _id }) => {
-	//   console.log(target.value, _id)
-	// 	dispatch(deleteWalkthroughAsync(target.value))
-	// }
-
-	const onWalkthroughDelete = (_id) => {
-		dispatch(deleteWalkthroughAsync(_id)).then((data) => console.log(data))
+	const onWalkthroughDelete = (id) => {
+		dispatch(deleteWalkthroughAsync(id))
+		setIsLoading(true)
 	}
 
 	if (!walkthroughs.length) {
@@ -41,52 +41,44 @@ export const MainPage = () => {
 				История прохождений
 			</h2>
 			<div className="grid grid-rows-2 grid-flow-col gap-3">
-				{walkthroughs.map(
-					({
-						_id,
-						title,
-						author,
-						numQuestions,
-						numCorrectAnswers,
-						createdAt,
-					}) => (
-						<ul className="" key={_id}>
-							<li className="flex flex-col p-2 justify-between border border-amber-950 rounded-md text-sm">
-								<div className=" text-xl text-black">Название теста:</div>
-								<div className=" text-xl text-black">{title}</div>
-								<div className="p-4 text-blue-800">{_id}</div>
-								<div>Количество вопросов: {numQuestions}</div>
-								<div>Автор теста: {author}</div>
-								<div className="flex flex-row text-xs pt-2 justify-between">
-									Дата создания:
-									<Moment date={createdAt} format="DD.MM.YYYYг. HH:mm" />
-								</div>
-								<div className="flex flex-col justify-center pt-5">
-									<Button
-										title="Открыть"
-										bgColor="bg-green-800"
-										fontSize="text-xl"
-										onClick={() => navigate('/walkthroughs')}
-									/>
-									<Button
-										title="Редактировать"
-										bgColor="bg-blue-600"
-										fontSize="text-xl"
-										onClick={() => navigate('/edit')}
-									/>
-									<Button
-										title="Удалить"
-										fontSize="text-xl"
-										// onClick={(e) => console.log(e.target.value, _id)}
-										// onClick={onWalkthroughDelete}
-										onDelete={() => onWalkthroughDelete(_id)}
-										// onClick={() => onDelete(id)}
-									/>
-								</div>
-							</li>
-						</ul>
-					)
-				)}
+				{walkthroughs.map(({ _id, title, author, numQuestions, createdAt }) => (
+					<ul className="" key={_id}>
+						<li className="flex flex-col p-2 justify-between border border-amber-950 rounded-md text-sm">
+							<div className=" text-xl text-black">Название теста:</div>
+							<div className=" text-xl text-black">{title}</div>
+							<div className="p-4 text-blue-800">{_id}</div>
+							<div>Количество вопросов: {numQuestions}</div>
+							<div>Автор теста: {author}</div>
+							<div className="flex flex-row text-xs pt-2 justify-between">
+								Дата создания:
+								<Moment date={createdAt} format="DD.MM.YYYYг. HH:mm" />
+							</div>
+							<div className="flex flex-col justify-center pt-5">
+								<Button
+									title="Открыть"
+									bgColor="bg-green-800"
+									fontSize="text-xl"
+									onClick={() => navigate('/walkthroughs')}
+								/>
+								{firstName && (
+									<>
+										<Button
+											title="Редактировать"
+											bgColor="bg-blue-600"
+											fontSize="text-xl"
+											onClick={() => navigate('/edit')}
+										/>
+										<Button
+											title="Удалить"
+											fontSize="text-xl"
+											onClick={() => onWalkthroughDelete(_id)}
+										/>
+									</>
+								)}
+							</div>
+						</li>
+					</ul>
+				))}
 			</div>
 		</>
 	)

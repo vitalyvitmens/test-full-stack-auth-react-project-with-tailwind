@@ -40,6 +40,15 @@ export const Navbar = () => {
 					</li>
 					<li>
 						<NavLink
+							to="/walkthroughs"
+							className="text-lg text-gray-400 hover:text-white"
+							style={({ isActive }) => (isActive ? activeStyles : undefined)}
+						>
+							Мои тесты
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
 							to="/quiz"
 							className="text-lg text-gray-400 hover:text-white"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
@@ -54,15 +63,6 @@ export const Navbar = () => {
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
 							Редактировать
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to="/walkthroughs"
-							className="text-lg text-gray-400 hover:text-white"
-							style={({ isActive }) => (isActive ? activeStyles : undefined)}
-						>
-							Мои тесты
 						</NavLink>
 					</li>
 				</ul>

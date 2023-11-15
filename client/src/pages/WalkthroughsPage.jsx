@@ -19,7 +19,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 	useLayoutEffect(() => {
 		setIsLoading(true)
 
-		dispatch(loadWalkthroughsAsync())
+		// dispatch(loadWalkthroughsAsync())
 
 		// const newWalkthrough = {
 		// 	title: 'TITLE',
@@ -58,18 +58,18 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 			<h2 className="text-3xl text-center text-blue-800">
 				История прохождений
 			</h2>
-			<ul className="w-full flex flex-col items-center">
-				{!isLoading &&
-					walkthroughs.map(
-						({
-							_id,
-							title,
-							author,
-							numQuestions,
-							numCorrectAnswers,
-							createdAt,
-						}) => (
-							<li key={_id} className="flex flex-row p-1">
+			{!isLoading &&
+				walkthroughs.map(
+					({
+						_id,
+						title,
+						author,
+						numQuestions,
+						numCorrectAnswers,
+						createdAt,
+					}) => (
+						<ul className="w-full flex flex-col items-center" key={_id}>
+							<li className="flex flex-row p-1">
 								<div className="flex flex-row border w-[700px]  border-black rounded-md px-4 py-2 justify-between">
 									<div className="flex flex-col px-4 py-2 text-xl">
 										{title}
@@ -95,9 +95,9 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 									</div>
 								</div>
 							</li>
-						)
-					)}
-			</ul>
+						</ul>
+					)
+				)}
 		</div>
 	)
 }

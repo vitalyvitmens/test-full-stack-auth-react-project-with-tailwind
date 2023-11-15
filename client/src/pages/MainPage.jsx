@@ -5,9 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Moment from 'react-moment'
 import {
 	deleteWalkthroughAsync,
+	loadUsersAsync,
 	loadWalkthroughsAsync,
+	selectUsers,
 	selectUserFirstName,
 	selectWalkthroughs,
+	setUser,
+	setUserData,
 } from '../redux'
 
 export const MainPage = () => {
@@ -16,9 +20,12 @@ export const MainPage = () => {
 	const dispatch = useDispatch()
 	const walkthroughs = useSelector(selectWalkthroughs)
 	const firstName = useSelector(selectUserFirstName)
+	const user = useSelector(selectUsers)
+	console.log(user.data)
 
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())
+		dispatch(loadUsersAsync())
 		setIsLoading(false)
 	}, [dispatch, isLoading])
 
@@ -27,7 +34,7 @@ export const MainPage = () => {
 		setIsLoading(true)
 	}
 
-	if (!walkthroughs.length) {
+	if (!walkthroughs.length | !user.data) {
 		return <Loader />
 	}
 
@@ -42,12 +49,19 @@ export const MainPage = () => {
 			</h2>
 			<div className="grid grid-rows-2 grid-flow-col gap-3">
 				{walkthroughs.map(({ _id, title, author, numQuestions, createdAt }) => (
-					<ul className="" key={_id}>
+					<ul key={_id}>
 						<li className="flex flex-col p-2 justify-between border border-amber-950 rounded-md text-sm">
 							<div className=" text-xl text-black">{title}</div>
 							<div className="p-4 text-blue-800">{_id}</div>
 							<div>Количество вопросов: {numQuestions}</div>
-							<div>Автор теста: {author}</div>
+							<div>
+								{user.data.map(({ id, lastName, firstName }) => (
+									<div key={id}>
+										Автор теста: {author === id && lastName}{' '}
+										{author === id && firstName}
+									</div>
+								))}
+							</div>
 							<div className="flex flex-row text-xs pt-2 justify-between">
 								Дата создания:
 								<Moment date={createdAt} format="DD.MM.YYYYг. HH:mm" />

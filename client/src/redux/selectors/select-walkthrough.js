@@ -1,1 +1,1 @@
-export const selectWalkthroughs = ({ walkthrough }) => walkthrough.walkthroughs
+export const selectWalkthrough = ({ walkthrough }) => walkthrough

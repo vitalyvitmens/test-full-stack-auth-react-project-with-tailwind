@@ -15,6 +15,7 @@ import {
 	walkthroughReducer,
 	quizReducer,
 	quizsReducer,
+	walkthroughsReducer,
 } from './'
 
 const reducer = combineReducers({
@@ -25,6 +26,7 @@ const reducer = combineReducers({
 	posts: postsReducer,
 	question: questionReducer,
 	walkthrough: walkthroughReducer,
+	walkthroughs: walkthroughsReducer,
 	quiz: quizReducer,
 	quizs: quizsReducer,
 })

@@ -1,11 +1,11 @@
-import { setWalkthroughs } from '../../redux'
+import { request } from '../../utils'
+import { setWalkthrough } from '../../redux'
 
-export const loadWalkthroughsAsync = () => {
-	return async (dispatch) => {
-		const response = await fetch(`/walkthroughs`, {
-			method: 'GET',
-		})
-		const walkthroughs = await response.json()
-		return dispatch(setWalkthroughs(walkthroughs))
-	}
-}
+export const loadWalkthroughAsync = (walkthroughId) => (dispatch) =>
+	request(`/walkthroughs/${walkthroughId}`).then((walkthroughData) => {
+		if (walkthroughData.data) {
+			dispatch(setWalkthrough(walkthroughData.data))
+		}
+
+		return walkthroughData
+	})

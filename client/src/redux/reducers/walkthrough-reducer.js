@@ -10,6 +10,12 @@ export const walkthroughReducer = (state = initialWalkthroughState, action) => {
 			return { ...state, walkthroughs: action.payload }
 		}
 
+		case ACTION_TYPE.SET_WALKTHROUGH_DATA:
+			return {
+				...state,
+				...action.payload,
+			}
+
 		case ACTION_TYPE.ADD_WALKTHROUGH: {
 			const addWalkthrough = state.walkthroughs.concat([action.payload])
 

@@ -38,6 +38,7 @@ const {
 	addWalkthrough,
 	deleteWalkthrough,
   getWalkthrough,
+  getItemWalkthrough,
   editWalkthrough,
 } = require('./controllers/walkthrough')
 
@@ -176,6 +177,13 @@ app.get('/walkthroughs', async (req, res) => {
 	res.json(walkthroughs)
 })
 
+app.get('/walkthroughs/:id', async (req, res) => {
+	const walkthrough = await getItemWalkthrough(req.params.id)
+
+	res.send({ data: mapPost(walkthrough) })
+})
+
+
 app.post('/walkthroughs', async (req, res) => {
 	try {
 		const newWalkthrough = await addWalkthrough(req.body)
@@ -306,7 +314,7 @@ app.delete('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	res.send({ error: null })
 })
 
-app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
+app.get('/users', async (req, res) => {
 	const users = await getUsers()
 
 	res.send({ data: users.map(mapUser) })

@@ -16,6 +16,17 @@ const editWalkthrough = async (id, updatedWalkthrough) => {
 	await Walkthrough.updateOne({ _id: id }, updatedWalkthrough)
 }
 
+// get item
+async function getItemWalkthrough(id) {
+	const post = await Walkthrough.findById(id).populate({
+		path: 'walkthrough',
+		populate: 'author',
+	})
+
+	return post
+}
+
+
 // delete
 function deleteWalkthrough(id) {
 	return Walkthrough.deleteOne({ _id: id })
@@ -26,6 +37,7 @@ module.exports = {
 	addWalkthrough,
 	editWalkthrough,
 	deleteWalkthrough,
+  getItemWalkthrough,
 }
 
 // const Walkthrough = require('../models/Walkthrough')

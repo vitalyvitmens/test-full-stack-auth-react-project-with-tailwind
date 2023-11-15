@@ -7,6 +7,7 @@ const initialUserState = {
 	lastName: null,
 	email: null,
 	roleId: ROLE.GUEST,
+	users: [],
 }
 
 export const userReducer = (state = initialUserState, action) => {
@@ -16,6 +17,9 @@ export const userReducer = (state = initialUserState, action) => {
 				...state,
 				...action.payload,
 			}
+		case ACTION_TYPE.SET_USERS: {
+			return { ...state, users: action.payload }
+		}
 		case ACTION_TYPE.SET_USER_DATA:
 			return {
 				...state,

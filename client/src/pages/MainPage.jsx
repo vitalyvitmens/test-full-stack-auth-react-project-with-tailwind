@@ -18,9 +18,7 @@ export const MainPage = () => {
 	const dispatch = useDispatch()
 	const walkthroughs = useSelector(selectWalkthroughs)
 	const firstName = useSelector(selectUserFirstName)
-  console.log(firstName)
 	const user = useSelector(selectUsers)
-  console.log(user.data)
 
 	useLayoutEffect(() => {
 		dispatch(loadWalkthroughsAsync())
@@ -39,14 +37,7 @@ export const MainPage = () => {
 
 	return (
 		<>
-			<div className="flex mt-40 justify-center gap-20">
-				<Button title="Запустить тест" onClick={() => navigate('/quiz')} />
-				<Button title="Редактировать тест" onClick={() => navigate('/edit')} />
-			</div>
-			<h2 className="mt-2 mb-4 text-3xl text-center text-blue-800">
-				История прохождений
-			</h2>
-			<div className="grid grid-rows-2 grid-flow-col gap-3">
+			<div className="grid grid-rows-2 grid-flow-col gap-3 mt-40">
 				{walkthroughs.map(({ _id, title, author, numQuestions, createdAt }) => (
 					<ul key={_id}>
 						<li className="flex flex-col p-2 justify-between border border-amber-950 rounded-md text-sm">

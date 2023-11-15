@@ -49,10 +49,21 @@ export const MainPage = () => {
 									Дата создания:
 									<Moment date={createdAt} format="DD.MM.YYYYг. HH:mm" />
 								</div>
-								<div className="flex justify-center pt-5">
+								<div className="flex flex-col justify-center pt-5">
 									<Button
 										title="Открыть"
 										bgColor="bg-green-800"
+										fontSize="text-xl"
+										onClick={() => navigate('/walkthroughs')}
+									/>
+									<Button
+										title="Редактировать"
+										bgColor="bg-blue-600"
+										fontSize="text-xl"
+										onClick={() => navigate('/edit')}
+									/>
+									<Button
+										title="Удалить"
 										fontSize="text-xl"
 										onClick={() => navigate('/walkthroughs')}
 									/>

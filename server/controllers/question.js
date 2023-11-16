@@ -6,7 +6,10 @@ const getQuestions = async () => {
 }
 
 const addQuestion = async (question) => {
-	await Question.create(question)
+	const newQuestion = await Question.create(question)
+	await newQuestion.populate('author')
+
+  return newQuestion
 }
 
 const editQuestion = async (id, updatedQuestion) => {

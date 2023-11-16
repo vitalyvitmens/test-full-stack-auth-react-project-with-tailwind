@@ -1,6 +1,7 @@
 module.exports = function (question) {
 	return {
 		id: question.id,
+		author: question?.author?.lastName,
 		title: question.title,
 		answers: [
 			{

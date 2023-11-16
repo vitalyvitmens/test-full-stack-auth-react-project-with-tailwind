@@ -1,11 +1,21 @@
 const Quiz = require('../models/Quiz')
 
+// get item
+async function getQuiz(id) {
+	const quiz = await Quiz.findById(id).populate({
+		path: 'questions',
+		populate: 'author',
+	})
+
+	return quiz
+}
+
 // add
 async function addQuiz(quiz) {
 	const newQuiz = await Quiz.create(quiz)
 
 	await newQuiz.populate({
-		path: 'walkthrough',
+		path: 'questions',
 		populate: 'author',
 	})
 
@@ -19,7 +29,7 @@ async function editQuiz(id, quiz) {
 	})
 
 	await newQuiz.populate({
-		path: 'walkthrough',
+		path: 'questions',
 		populate: 'author',
 	})
 
@@ -47,18 +57,6 @@ function deleteQuiz(id) {
 // 		lastPage: Math.ceil(count / limit),
 // 	}
 // }
-
-// get item
-async function getQuiz(id) {
-	const quiz = await Quiz.findById(id).populate({
-		path: 'walkthrough',
-		populate: 'author',
-	})
-
-	quiz.views = quiz.views + 1
-	await quiz.save()
-	return quiz
-}
 
 module.exports = {
 	addQuiz,

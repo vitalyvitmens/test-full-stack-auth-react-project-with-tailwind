@@ -137,39 +137,35 @@ app.get('/posts/:id', async (req, res) => {
 // 	}
 // )
 
-// app.post(
-// 	'/quizs',
-// 	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
-// 	async (req, res) => {
-// 		try {
-// 			const newQuiz = await addQuiz({
-// 				title: req.body.title,
-// 			})
+app.post('/quizzes', async (req, res) => {
+	try {
+		const newQuiz = await addQuiz({
+			title: req.body.title,
+		})
 
-// 			res.send({ data: mapQuiz(newQuiz) })
-// 		} catch (error) {
-// 			console.error('Something went wrong!', error)
-// 		}
-// 	}
-// )
+		res.send({ data: mapQuiz(newQuiz) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
+})
 
-// app.patch('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
-// 	try {
-// 		const updatedQuiz = await editQuiz(req.params.id, {
-// 			title: req.body.title,
-// 		})
+app.patch('/quizzes/:id', async (req, res) => {
+	try {
+		const updatedQuiz = await editQuiz(req.params.id, {
+			title: req.body.title,
+		})
 
-// 		res.send({ data: mapQuiz(updatedQuiz) })
-// 	} catch (error) {
-// 		console.error('Something went wrong!', error)
-// 	}
-// })
+		res.send({ data: mapQuiz(updatedQuiz) })
+	} catch (error) {
+		console.error('Something went wrong!', error)
+	}
+})
 
-// app.delete('/quizs/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
-// 	await deleteQuiz(req.params.id)
+app.delete('/quizzes/:id', async (req, res) => {
+	await deleteQuiz(req.params.id)
 
-// 	res.send({ error: null })
-// })
+	res.send({ error: null })
+})
 
 app.get('/walkthroughs', async (req, res) => {
 	const walkthroughs = await getWalkthrough()

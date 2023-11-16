@@ -7,10 +7,14 @@ const QuizSchema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		walkthroughs: [
+		author: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+		},
+		questions: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Walkthrough',
+				ref: 'Question',
 			},
 		],
 	},

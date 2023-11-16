@@ -3,22 +3,23 @@ import { ACTION_TYPE } from '../../redux'
 const initialQuizState = {
 	id: '',
 	title: '',
+  author: '',
 	publishedAt: '',
-	walkthroughs: [],
+	questions: [],
 }
 
 export const quizReducer = (state = initialQuizState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.ADD_WALKTHROUGH:
+		case ACTION_TYPE.ADD_QUESTIONS:
 			return {
 				...state,
-				walkthroughs: [...state.walkthroughs, action.payload],
+				questions: [...state.questions, action.payload],
 			}
-		case ACTION_TYPE.REMOVE_WALKTHROUGH:
+		case ACTION_TYPE.REMOVE_QUESTIONS:
 			return {
 				...state,
-				walkthroughs: state.walkthroughs.filter(
-					(walkthrough) => walkthrough.id !== action.payload
+				questions: state.questions.filter(
+					(questions) => questions.id !== action.payload
 				),
 			}
 		case ACTION_TYPE.SET_QUIZ_DATA:

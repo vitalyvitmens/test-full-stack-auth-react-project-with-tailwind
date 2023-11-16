@@ -7,6 +7,7 @@ import {
 	loadQuestionsAsync,
 	deleteQuestionAsync,
 	selectQuestions,
+	saveQuizAsync,
 } from '../redux'
 
 export const EditPage = () => {
@@ -46,6 +47,23 @@ export const EditPage = () => {
 		dispatch(deleteQuestionAsync(id))
 	}
 
+	const onSave = () => {
+		setIsLoading(true)
+
+		// const question = {
+		// 	title: titleValue,
+		// 	answers: answersValue,
+		// }
+		// const newQuiz = {
+		// 	title: titleValue,
+		// 	answers: answersValue,
+		// }
+
+		// dispatch(saveQuizAsync(id, newQuiz))
+		dispatch(saveQuizAsync())
+		setIsLoading(false)
+	}
+
 	if (!questions.length) {
 		return <Loader />
 	}
@@ -58,6 +76,9 @@ export const EditPage = () => {
 					onClick={onQuestionAdd}
 					disabled={isLoading}
 				/>
+				<Button title="Сохранить QUIZ"
+        // onClick={onSave}
+        disabled={isLoading} />
 				<Button title="Назад" onClick={() => navigate('/')} />
 			</div>
 			<ul className="w-full flex flex-col items-center">
@@ -82,6 +103,7 @@ export const EditPage = () => {
 					onClick={onQuestionAdd}
 					disabled={isLoading}
 				/>
+				<Button title="Сохранить QUIZ" onClick={onSave} disabled={isLoading} />
 				<Button title="Назад" onClick={() => navigate('/')} />
 			</div>
 		</div>

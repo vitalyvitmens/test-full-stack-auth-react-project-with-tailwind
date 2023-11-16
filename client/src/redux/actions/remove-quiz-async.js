@@ -1,3 +1,3 @@
 import { request } from '../../utils'
 
-export const removeQuizAsync = (id) => () => request(`/quizs/${id}`, 'DELETE')
+export const removeQuizAsync = (id) => () => request(`/quizzes/${id}`, 'DELETE')

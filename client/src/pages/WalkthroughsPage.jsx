@@ -38,7 +38,7 @@ export const WalkthroughsPage = ({ score, numQuestions, onRestart }) => {
 		setTitleValue(target.value)
 	}
 
-	if (!walkthroughs.length | !user.data) {
+	if (!walkthroughs.length || !user.data) {
 		return <Loader />
 	}
 

@@ -113,7 +113,7 @@ app.get('/posts/:id', async (req, res) => {
 // 	}
 // )
 
-// app.post('/quizs/:id/walkthroughs', async (req, res) => {
+// app.post('/quizzes/:id/walkthroughs', async (req, res) => {
 // 	try {
 // 		const newWalkthrough = await addWalkthrough(req.params.id, {
 // 			author: req.user.id,
@@ -128,7 +128,7 @@ app.get('/posts/:id', async (req, res) => {
 // })
 
 // app.delete(
-// 	'/quizs/:quizId/walkthroughs/:walkthroughId',
+// 	'/quizzes/:quizId/walkthroughs/:walkthroughId',
 // 	hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]),
 // 	async (req, res) => {
 // 		await deleteWalkthrough(req.params.quizId, req.params.walkthroughId)

@@ -31,7 +31,7 @@ export const MainPage = () => {
 		setIsLoading(true)
 	}
 
-	if (!walkthroughs.length | !user.data) {
+	if (!walkthroughs.length || !user.data) {
 		return <Loader />
 	}
 

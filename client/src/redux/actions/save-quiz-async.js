@@ -3,8 +3,8 @@ import { setQuizData } from '../../redux'
 
 export const saveQuizAsync = (id, newQuizData) => (dispatch) => {
 	const saveRequest = id
-		? request(`/quizs/${id}`, 'PATCH', newQuizData)
-		: request('/quizs', 'POST', newQuizData)
+		? request(`/quizzes/${id}`, 'PATCH', newQuizData)
+		: request('/quizzes', 'POST', newQuizData)
 
 	return saveRequest.then((updatedQuiz) => {
 		dispatch(setQuizData(updatedQuiz.data))

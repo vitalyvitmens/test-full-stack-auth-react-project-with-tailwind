@@ -1,6 +1,7 @@
 export * from './MainPage'
 export * from './QuizPage'
 export * from './EditPage'
+export * from './CreaterQuizPage'
 export * from './FinishPage'
 export * from './AuthorizationPage'
 export * from './RegiztrationPage'

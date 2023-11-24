@@ -42,7 +42,7 @@ const {
 	editWalkthrough,
 } = require('./controllers/walkthrough')
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 4001
 const app = express()
 
 app.use(express.static('../frontend/build'))
